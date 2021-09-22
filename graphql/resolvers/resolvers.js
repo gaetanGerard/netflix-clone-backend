@@ -341,11 +341,11 @@ const authors = [
 
 export const resolvers = {
     Query: {
-        getAuthors: () => {
+        getMovies: () => {
             return authors;
         },
 
-        getAuthor: (parent, args, context, info) => {
+        getMovie: (parent, args, context, info) => {
             return authors.find(author => author._id === args._id)
         }
     }
