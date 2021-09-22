@@ -1,31 +1,27 @@
 import { gql } from "apollo-server-express";
 
-import {inter} from './interface.js';
-import {union} from './union.js';
-import {user} from './user.js';
-import {director} from './director.js';
-import {cast} from './cast.js';
-import {writer} from './writer.js';
-import {creator} from './creator.js';
-import {genre} from './genre.js';
-import {episode} from './episode.js';
-import {season} from './season.js';
+// import {inter} from './interface.js';
+// import {union} from './union.js';
 import {movie} from './movie.js';
-import {serie} from './serie.js';
 import {query} from './query.js';
 
+import {spokenLanguages} from './spokenLanguages.js';
+import {productionCountries} from './productionCountries.js';
+import {productionCompanies} from './productionCompanies.js';
+import {genre} from './genre.js';
+import {collection} from './collection.js';
+import {movieResult} from './movieResult.js';
+import {moviesDiscover} from './moviesDiscover.js';
+
+
 export const schema = gql`
-    ${inter}
-    ${union}
-    ${user}
-    ${director}
-    ${cast}
-    ${writer}
-    ${creator}
+    ${collection}
     ${genre}
-    ${episode}
-    ${season}
+    ${productionCompanies}
+    ${productionCountries}
+    ${spokenLanguages}
+    ${movieResult}
     ${movie}
-    ${serie}
+    ${moviesDiscover}
     ${query}
 `;

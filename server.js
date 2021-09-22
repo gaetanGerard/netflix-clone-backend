@@ -5,6 +5,7 @@ import http from 'http';
 
 import {schema} from './graphql/schema/schema.js';
 import {resolvers} from './graphql/resolvers/resolvers.js';
+import {MoviesAPI} from './utils/moviesAPI.js';
 
 async function startApolloServer(typeDefs, resolvers) {
   const app = express();
@@ -12,6 +13,11 @@ async function startApolloServer(typeDefs, resolvers) {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
+    dataSources: () => {
+      return {
+        moviesApi: new MoviesAPI()
+      }
+    },
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
   await server.start();
