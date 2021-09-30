@@ -4,4 +4,9 @@ export const genre = `
         id: ID!
         name: String!
     }
+
+    """ Genres Type """
+    type Genres {
+        genres: [Genre!]!
+    }
 `;

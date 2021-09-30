@@ -1,7 +1,5 @@
 import { gql } from "apollo-server-express";
 
-// import {inter} from './interface.js';
-// import {union} from './union.js';
 import {movie} from './movie.js';
 import {query} from './query.js';
 
@@ -12,6 +10,11 @@ import {genre} from './genre.js';
 import {collection} from './collection.js';
 import {movieResult} from './movieResult.js';
 import {moviesDiscover} from './moviesDiscover.js';
+import {upcomingAndNowPlayingMovie} from './upcomingAndNowPlayingMovie.js';
+import {movieCredits} from './movieCredits.js';
+import {cast} from './cast.js';
+import {crew} from './crew.js';
+import {certifications} from './certifications.js';
 
 
 export const schema = gql`
@@ -23,5 +26,10 @@ export const schema = gql`
     ${movieResult}
     ${movie}
     ${moviesDiscover}
+    ${upcomingAndNowPlayingMovie}
+    ${cast}
+    ${crew}
+    ${movieCredits}
+    ${certifications}
     ${query}
 `;
