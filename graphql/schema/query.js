@@ -39,5 +39,7 @@ export const query = `
         """ Get Credits for a Movie """
         getCredits(id: ID!, language: String): MediaCredits
 
+        getCertifications(media: String): Certifications!
+
     }
 `;

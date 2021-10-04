@@ -28,6 +28,18 @@ export const resolvers = {
       }
     },
 
+    // resolver for CertificationsUnion
+    // if match return TV certifications otherwise Movie certifications
+    CertificationsUnion: {
+      __resolveType(obj) {
+        if(obj.KR) {
+          return 'TVCertifications'
+        } else {
+          return 'MovieCertifications'
+        }
+      }
+    },
+
     Query: {
         /**
          *  Resolver to Fetch one movie if id is provided otherwise latest movie added is fetch
@@ -96,6 +108,20 @@ export const resolvers = {
         getCredits: async (_, { id, language }, { dataSources }) => {
           try {
             return dataSources.moviesApi.getCredits(id, language);
+          } catch (error) {
+            console.log(error);
+          }
+        },
+
+        /**
+         *  Resolver to get the certifications for TV and Movies
+         * @param {_} parent
+         * @param {media} arguments (movie, tv) -> Optional (movie as default)
+         * @returns return object containing list of certifications
+         */
+        getCertifications: async (_, { media }, { dataSources }) => {
+          try {
+            return dataSources.moviesApi.getCertifications(media);
           } catch (error) {
             console.log(error);
           }

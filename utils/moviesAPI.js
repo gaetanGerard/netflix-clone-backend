@@ -71,4 +71,14 @@ export class MoviesAPI extends RESTDataSource {
     async getCredits(id, language = "en-US") {
         return this.get(`movie/${encodeURIComponent(id)}/credits?api_key=${process.env.TMDB_API_KEY}&language=${language}`)
     }
+
+    /**
+     *  Resolver to get the certifications for TV and Movies
+     * @param {_} parent
+     * @param {media} arguments (movie, tv) -> Optional (movie as default)
+     * @returns return object containing list of certifications
+     */
+    async getCertifications(media = "movie") {
+         return this.get(`certification/${media}/list?api_key=${process.env.TMDB_API_KEY}`)
+    }
 }

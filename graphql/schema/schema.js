@@ -6,6 +6,7 @@ import {union} from './union.js';
 import {utilities} from './utilities.js';
 import {discover} from './discover.js';
 import {credits} from './credits.js';
+import {certifications} from './certifications.js';
 import {movie} from './movie.js';
 
 
@@ -14,6 +15,7 @@ export const schema = gql`
     ${movie}
     ${discover}
     ${credits}
+    ${certifications}
     ${union}
     ${query}
 
