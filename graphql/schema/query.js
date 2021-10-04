@@ -86,9 +86,19 @@ export const query = `
 
         """ Get Company
             Option : \n
+                whatToTarget: String / company (default) !! Required !! \n
+                    Option can be company or network \n
                 id: ID / companyId !! Required !!
         """
-        getCompanies(companyId: ID!): Company!
+        getCompanies(whatToTarget: String, companyId: ID!): Company!
+
+        """ Get Network
+        Option : \n
+            whatToTarget: String / company (default) !! Required !! \n
+                Option can be company or network \n
+            id: ID / companyId !! Required !!
+    """
+    getNetworks(whatToTarget: String, companyId: ID!): Network!
 
     }
 `;

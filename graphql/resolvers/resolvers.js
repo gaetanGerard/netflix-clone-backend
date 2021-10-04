@@ -80,9 +80,17 @@ export const resolvers = {
           }
         },
 
-        getCompanies: async (_, { companyId }, { dataSources }) => {
+        getCompanies: async (_, { whatToTarget, companyId }, { dataSources }) => {
           try {
-            return dataSources.moviesApi.getCompanies(companyId);
+            return dataSources.moviesApi.getCompaniesOrNetwork(whatToTarget, companyId);
+          } catch (error) {
+            console.log(error);
+          }
+        },
+
+        getNetworks: async (_, { whatToTarget, companyId }, { dataSources }) => {
+          try {
+            return dataSources.moviesApi.getCompaniesOrNetwork(whatToTarget, companyId);
           } catch (error) {
             console.log(error);
           }
