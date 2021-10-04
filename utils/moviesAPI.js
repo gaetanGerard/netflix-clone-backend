@@ -34,7 +34,7 @@ export class MoviesAPI extends RESTDataSource {
      * @param {primaryReleaseDateGTE} arguments (year as string) -> Optional (2018 as default)
      * @returns if media set return series discover list otherwise return movies list
      */
-    async getDiscover(whatToTarget = "company", media = "movie", language = "en-US", sortBy = "popularity.desc", primaryReleaseDateGTE = "2018") {
+    async getDiscover(whatToTarget = "discover", media = "movie", language = "en-US", sortBy = "popularity.desc", primaryReleaseDateGTE = "2018") {
         if(media === "movie") {
             return this.get(`${whatToTarget}/${media}?api_key=${process.env.TMDB_API_KEY}&language=${language}&sort_by=${sortBy}&primary_release_date.gte=${primaryReleaseDateGTE}`)
         } else {
@@ -75,10 +75,17 @@ export class MoviesAPI extends RESTDataSource {
     /**
      *  Resolver to get the certifications or genres for TV and Movies
      * @param {_} parent
+     * @param {whatToTarget} arguments is define in resolver
      * @param {media} arguments (movie, tv) -> Optional (movie as default)
-     * @returns return object containing list of certifications or Genres
+     * @param {id} arguments  is Required if company is set
+     * @returns return object containing list of certifications or Genres or companies
      */
-    async getCertifOrGenres(whatToTarget = "certification", media = "movie") {
-         return this.get(`${whatToTarget}/${media}/list?api_key=${process.env.TMDB_API_KEY}`)
+    async getCertifOrGenresOrCompany(whatToTarget = "certification", media = "movie", id) {
+        if(whatToTarget === "company") {
+            return this.get(`${whatToTarget}/${encodeURIComponent(id)}?api_key=${process.env.TMDB_API_KEY}`)
+        } else {
+            return this.get(`${whatToTarget}/${media}/list?api_key=${process.env.TMDB_API_KEY}`)
+        }
+
     }
 }

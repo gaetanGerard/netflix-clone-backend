@@ -10,7 +10,6 @@ export const query = `
 
         """ Query for Get Discover movies or series \n
         Option : \n
-            whatToTarget: String / company (default) !! Required !! \n
             media: String / movie (default) !! Required !! \n
                 Option can be : movie \n
                                 tv \n
@@ -22,7 +21,7 @@ export const query = `
                                 primary_release_date.desc/asc \n
             primaryReleaseDateGTE: String / 2018 (default) Optional \n
         """
-        getDiscover(whatToTarget: String, media: String, language: String, sortBy: String, primaryReleaseDateGTE: String): Discover!
+        getDiscover(media: String, language: String, sortBy: String, primaryReleaseDateGTE: String): Discover!
 
         """ Query for Get Now Playing / Upcoming / Top rated / Popular movies \n
         Option : \n
@@ -54,6 +53,12 @@ export const query = `
                                 tv \n
         """
         getGenres(media: String): Genres!
+
+        """ Query for Get a Company
+        Option : \n
+            id: ID / id of a company !! Required !! \n
+        """
+        getCompany(id: String): Company!
 
     }
 `;

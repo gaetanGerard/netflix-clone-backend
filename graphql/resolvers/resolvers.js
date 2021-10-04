@@ -60,7 +60,6 @@ export const resolvers = {
         /**
          *  Resolver to Fetch a Discover list of movies or series
          * @param {_} parent
-         * @param {whatToTarget} arguments (discover) -> Optional (discover as default)
          * @param {media} arguments (movie,tv) -> Required (movie as default)
          * @param {language} arguments (en-US) -> Optional (en-US as default) language on this format
          * @param {sortBy} arguments (popularity.asc, release_date.desc/asc, revenue.desc/asc, primary_release_date.desc/asc) -> Optional (popularity.asc as default)
@@ -68,7 +67,8 @@ export const resolvers = {
          * @param {dataSources} fetch data from moviesAPI
          * @returns if media set return series discover list otherwise return movies list
          */
-        getDiscover: async (_, { whatToTarget, media, language, sortBy, primaryReleaseDateGTE }, { dataSources }) => {
+        getDiscover: async (_, { media, language, sortBy, primaryReleaseDateGTE }, { dataSources }) => {
+          const whatToTarget = "discover";
           try {
             return dataSources.moviesApi.getDiscover(whatToTarget, media, language, sortBy, primaryReleaseDateGTE);
           } catch (error) {
@@ -122,7 +122,7 @@ export const resolvers = {
          */
         getCertifications: async (_, { whatToTarget, media }, { dataSources }) => {
           try {
-            return dataSources.moviesApi.getCertifOrGenres(whatToTarget, media);
+            return dataSources.moviesApi.getCertifOrGenresOrCompany(whatToTarget, media);
           } catch (error) {
             console.log(error);
           }
@@ -138,7 +138,24 @@ export const resolvers = {
         getGenres: async (_, { media }, { dataSources }) => {
           const whatToTarget = "genre"
           try {
-            return dataSources.moviesApi.getCertifOrGenres(whatToTarget, media);
+            return dataSources.moviesApi.getCertifOrGenresOrCompany(whatToTarget, media);
+          } catch (error) {
+            console.log(error);
+          }
+        },
+
+        /**
+         *  Resolver to get the Production Company
+         * @param {_} parent
+         * @param {id} arguments Required (id of the company)
+         * @param {dataSources} fetch data from moviesAPI
+         * @returns return object containing Company detail
+         */
+        getCompany: async (_, { id }, { dataSources }) => {
+          const whatToTarget = "company"
+          const media = "";
+          try {
+            return dataSources.moviesApi.getCertifOrGenresOrCompany(whatToTarget, media, id);
           } catch (error) {
             console.log(error);
           }
