@@ -73,12 +73,12 @@ export class MoviesAPI extends RESTDataSource {
     }
 
     /**
-     *  Resolver to get the certifications for TV and Movies
+     *  Resolver to get the certifications or genres for TV and Movies
      * @param {_} parent
      * @param {media} arguments (movie, tv) -> Optional (movie as default)
-     * @returns return object containing list of certifications
+     * @returns return object containing list of certifications or Genres
      */
-    async getCertifications(media = "movie") {
-         return this.get(`certification/${media}/list?api_key=${process.env.TMDB_API_KEY}`)
+    async getCertifOrGenres(whatToTarget = "certification", media = "movie") {
+         return this.get(`${whatToTarget}/${media}/list?api_key=${process.env.TMDB_API_KEY}`)
     }
 }

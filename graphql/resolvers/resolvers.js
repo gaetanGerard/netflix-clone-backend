@@ -117,11 +117,28 @@ export const resolvers = {
          *  Resolver to get the certifications for TV and Movies
          * @param {_} parent
          * @param {media} arguments (movie, tv) -> Optional (movie as default)
+         * @param {dataSources} fetch data from moviesAPI
          * @returns return object containing list of certifications
          */
-        getCertifications: async (_, { media }, { dataSources }) => {
+        getCertifications: async (_, { whatToTarget, media }, { dataSources }) => {
           try {
-            return dataSources.moviesApi.getCertifications(media);
+            return dataSources.moviesApi.getCertifOrGenres(whatToTarget, media);
+          } catch (error) {
+            console.log(error);
+          }
+        },
+
+        /**
+         *  Resolver to get the genres for TV and Movies
+         * @param {_} parent
+         * @param {media} arguments (movie, tv) -> Optional (movie as default)
+         * @param {dataSources} fetch data from moviesAPI
+         * @returns return object containing list of genres
+         */
+        getGenres: async (_, { media }, { dataSources }) => {
+          const whatToTarget = "genre"
+          try {
+            return dataSources.moviesApi.getCertifOrGenres(whatToTarget, media);
           } catch (error) {
             console.log(error);
           }
