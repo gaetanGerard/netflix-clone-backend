@@ -1,5 +1,5 @@
 export const movie = `
-    """ Movie Type """
+    """ Schema of a Movie object """
     type Movie {
         id: ID!
         adult: Boolean
