@@ -41,4 +41,8 @@ export class MoviesAPI extends RESTDataSource {
     async getCertifications(media) {
         return this.get(`certification/${media}/list?api_key=${process.env.TMDB_API_KEY}`)
     }
+
+    async getCompanies(companyId) {
+        return this.get(`company/${companyId}?api_key=${process.env.TMDB_API_KEY}`)
+    }
 }

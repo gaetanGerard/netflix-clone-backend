@@ -79,5 +79,14 @@ export const resolvers = {
             console.log(error);
           }
         },
+
+        getCompanies: async (_, { companyId }, { dataSources }) => {
+          try {
+            return dataSources.moviesApi.getCompanies(companyId);
+          } catch (error) {
+            console.log(error);
+          }
+        },
+
     }
 }

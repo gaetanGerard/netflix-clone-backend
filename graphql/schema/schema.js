@@ -15,6 +15,7 @@ import {movieCredits} from './movieCredits.js';
 import {cast} from './cast.js';
 import {crew} from './crew.js';
 import {certifications} from './certifications.js';
+import {company} from './company.js';
 
 
 export const schema = gql`
@@ -31,5 +32,6 @@ export const schema = gql`
     ${crew}
     ${movieCredits}
     ${certifications}
+    ${company}
     ${query}
 `;

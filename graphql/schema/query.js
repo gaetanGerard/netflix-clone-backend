@@ -84,5 +84,11 @@ export const query = `
         """ Get TV Certifications """
         getTVCertification: TVCert!
 
+        """ Get Company
+            Option : \n
+                id: ID / companyId !! Required !!
+        """
+        getCompanies(companyId: ID!): Company!
+
     }
 `;
