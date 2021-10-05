@@ -66,5 +66,17 @@ export const query = `
         """
         getNetwork(id: ID!): Network!
 
+        """ Query for Get a People
+            Option : \n
+                id: ID / id of people !! Required !! \n
+                language: String / en-US (default) Optional \n
+                append_to_response: String / null as (default) Optional \n
+                    Option can be :     movie_credits \n
+                                        tv_credits \n
+                                        combined_credits
+                                        images
+        """
+        getPeople(id: ID!, language: String, appendToResponse: String): People!
+
     }
 `;

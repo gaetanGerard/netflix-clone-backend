@@ -40,6 +40,35 @@ export const resolvers = {
       }
     },
 
+    // resolver for CastUnion
+    CastUnion: {
+      __resolveType(obj) {
+        if(obj.title && obj.media_type === "movie") {
+          return 'PeopleCastMovie'
+        }
+        if (obj.name && obj.media_type === "tv") {
+          return 'PeopleCastTV'
+        }
+        if(obj.media_type) {
+          return 'CombinedCast'
+        }
+        return 'Cast'
+      }
+    },
+
+    // resolver for CrewUnion
+    CrewUnion: {
+      __resolveType(obj) {
+        if(obj.title && obj.media_type === "movie") {
+          return 'PeopleCrewMovie'
+        }
+        if (obj.name && obj.media_type === "tv") {
+          return 'PeopleCrewTV'
+        }
+        return 'Crew'
+      }
+    },
+
     Query: {
         /**
          *  Resolver to Fetch one movie if id is provided otherwise latest movie added is fetch
@@ -178,6 +207,23 @@ export const resolvers = {
           const isNotCertif = true;
           try {
             return dataSources.moviesApi.getCertifOrGenresOrCompany(isNotCertif, whatToTarget, media, id);
+          } catch (error) {
+            console.log(error);
+          }
+        },
+
+        /**
+         *  Resolver to get People
+         * @param {_} parent
+         * @param {id} arguments Required (id of the People)
+         * @param {language} arguments Optional -> en-Us as default
+         * @param {appendToResponse} arguments -> null as default
+         * @param {dataSources} fetch data from moviesAPI
+         * @returns return object containing People detail
+         */
+         getPeople: async (_, { id, language, appendToResponse }, { dataSources }) => {
+          try {
+            return dataSources.moviesApi.getPeopleWithAppendToResponse(id, language, appendToResponse);
           } catch (error) {
             console.log(error);
           }

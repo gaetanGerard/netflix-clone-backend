@@ -89,4 +89,22 @@ export class MoviesAPI extends RESTDataSource {
         }
 
     }
+
+    /**
+     *  Resolver to get People
+     * @param {_} parent
+     * @param {id} arguments Required (id of the People)
+     * @param {language} arguments Optional -> en-Us as default
+     * @param {appendToResponse} arguments -> null as default
+     * @param {dataSources} fetch data from moviesAPI
+     * @returns return object containing People detail
+     */
+     async getPeopleWithAppendToResponse(id, language = "en-US", appendToResponse = null) {
+         if(appendToResponse === null) {
+            return this.get(`person/${encodeURIComponent(id)}?api_key=${process.env.TMDB_API_KEY}&language=${language}`)
+         } else if (appendToResponse){
+            return this.get(`person/${encodeURIComponent(id)}?api_key=${process.env.TMDB_API_KEY}&language=${language}&append_to_response=${appendToResponse}`)
+         }
+
+    }
 }
