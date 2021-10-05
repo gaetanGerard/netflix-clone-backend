@@ -26,6 +26,7 @@ export const utilities = `
 
     """ Schema for a Production Country used in Movie Schema """
     type SpokenLanguages {
+        english_name: String
         iso_639_1: String!
         name: String!
     }
@@ -54,5 +55,38 @@ export const utilities = `
         name: String!
         origin_country: String!
         parent_company: Company
+    }
+
+    """ Schema for CreatedBy """
+    type CreatedBy {
+        id: ID!
+        credit_id: String!
+        name: String!
+        gender: Int!
+        profile_path: String
+    }
+
+    """ Schema for Seasons """
+    type Seasons {
+        air_date: String!
+        episode_count: Int!
+        id: ID!
+        name: String!
+        overview: String!
+        poster_path: String
+        season_number: Int!
+    }
+
+    """ Schema for Role """
+    type Role {
+        credit_id: String!
+        character: String!
+        episode_count: Int!
+    }
+    """ Schema for Job """
+    type Job {
+        credit_id: String!
+        job: String!
+        episode_count: Int!
     }
 `;

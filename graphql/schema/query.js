@@ -1,12 +1,19 @@
 export const query = `
     """ Query """
     type Query {
-        """ Query for Get Movies List \n
+        """ Query for Get Movie \n
         Option : \n
             id: ID / (id of the movie) !! if ID not provided latest movie will be fetch !!
             language: String / en-US (default) Optional \n
         """
         getMovie(id: ID, language: String): Movie
+
+        """ Query for Get Serie \n
+        Option : \n
+            id: ID / (id of the movie) !! if ID not provided latest movie will be fetch !!
+            language: String / en-US (default) Optional \n
+        """
+        getSerie(id: ID, language: String, appendToResponse: String): Serie
 
         """ Query for Get Discover movies or series \n
         Option : \n

@@ -11,17 +11,19 @@ import {certifications} from './certifications.js';
 import {networks} from './networks.js';
 import {people} from './people.js';
 import {movie} from './movie.js';
+import {tv} from './tv.js';
 
 
 export const schema = gql`
     ${utilities}
     ${images}
-    ${movie}
     ${discover}
     ${credits}
     ${certifications}
     ${networks}
     ${people}
+    ${movie}
+    ${tv}
     ${union}
     ${query}
 

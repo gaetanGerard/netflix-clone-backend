@@ -79,11 +79,30 @@ export const resolvers = {
          * @returns if ID is provided a movie if no ID provided so the latest movie added to TMDB is return
          */
         getMovie: async (_, { id, language }, { dataSources }) => {
+            const whatToTarget = "movie";
             try {
-              return dataSources.moviesApi.getMovie(id, language);
+              return dataSources.moviesApi.getMovieOrTV(whatToTarget, id, language);
             } catch (error) {
               console.log(error);
             }
+        },
+
+        /**
+         *  Resolver to Fetch one Serie if id is provided otherwise latest Serie added is fetch
+         * @param {_} parent
+         * @param {id} arguments of the movie if not provided latest movie added will be fetch -> Optional
+         * @param {language} arguments (en-US) -> Optional (en-US as default) language on this format
+         * @param {appendToResponse} arguments (null) -> Optional can append aggregate_credits,credits or images to the object
+         * @param {dataSources} fetch data from moviesAPI
+         * @returns if ID is provided a movie if no ID provided so the latest movie added to TMDB is return
+         */
+        getSerie: async (_, { id, language, appendToResponse }, { dataSources }) => {
+          const whatToTarget = "tv";
+          try {
+            return dataSources.moviesApi.getMovieOrTV(whatToTarget, id, language, appendToResponse);
+          } catch (error) {
+            console.log(error);
+          }
         },
 
         /**

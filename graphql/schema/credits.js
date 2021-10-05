@@ -9,7 +9,7 @@ export const credits = `
         original_name: String!
         popularity: Float!
         profile_path: String
-        cast_id: Int!
+        cast_id: Int
         character: String!
         credit_id: String!
         order: Int!
@@ -116,10 +116,52 @@ export const credits = `
         media_type: String
     }
 
+
+    """ Schema for return result of credits for a TV """
+    type TVCredits {
+        cast: [Cast!]!
+        crew: [Crew!]!
+    }
+
     """ Schema for return result of credits for a movie """
     type MediaCredits {
         id: ID
         cast: [CastUnion!]!
         crew: [CrewUnion!]!
+    }
+
+    """ Schema for Aggregate TV Cast """
+    type AggregateTVCast {
+        adult: Boolean!
+        gender: Int
+        id: ID!
+        known_for_department: String!
+        name: String!
+        original_name: String!
+        popularity: Float!
+        profile_path: String
+        roles: [Role!]!
+        total_episode_count: Int!
+        order: Int!
+    }
+
+    """ Schema for Aggregate TV Crew """
+    type AggregateTVCrew {
+        adult: Boolean!
+        gender: Int
+        id: ID!
+        known_for_department: String!
+        name: String!
+        original_name: String!
+        popularity: Float!
+        profile_path: String
+        jobs: [Job!]!
+        total_episode_count: Int!
+    }
+
+    """ Schema for Aggregate Credits for TV """
+    type AggregateCreditsTV {
+        cast: [AggregateTVCast!]!
+        crew: [AggregateTVCrew!]!
     }
 `;

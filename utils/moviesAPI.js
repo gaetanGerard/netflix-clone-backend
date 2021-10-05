@@ -11,16 +11,22 @@ export class MoviesAPI extends RESTDataSource {
     }
 
     /**
-     *  Resolver to Fetch one movie if id is provided otherwise latest movie added is fetch
+     *  Resolver to Fetch one movie or Serie if id is provided otherwise latest movie or Serie added is fetch
+     * @param {whatToTarget} arguments define in resolver
      * @param {id} arguments of the movie if not provided latest movie added will be fetch -> Optional
      * @param {language} arguments (en-US) -> Optional (en-US as default) language on this format
-     * @returns if ID is provided a movie if no ID provided so the latest movie added to TMDB is return
+     * @param {appendToResponse} arguments (null) -> Optional can append aggregate_credits,credits or images to the object
+     * @returns if ID is provided a movie or Serie if no ID provided so the latest movie or Serie added to TMDB is return
      */
-    async getMovie(id, language = "en-US") {
+    async getMovieOrTV(whatToTarget, id, language = "en-US", appendToResponse = null) {
         if(id) {
-            return this.get(`movie/${encodeURIComponent(id)}?api_key=${process.env.TMDB_API_KEY}&language=${language}`)
+            if (appendToResponse === null) {
+                return this.get(`${whatToTarget}/${encodeURIComponent(id)}?api_key=${process.env.TMDB_API_KEY}&language=${language}`)
+            } else {
+                return this.get(`${whatToTarget}/${encodeURIComponent(id)}?api_key=${process.env.TMDB_API_KEY}&language=${language}&append_to_response=${appendToResponse}`)
+            }
         } else {
-            return this.get(`movie/latest?api_key=${process.env.TMDB_API_KEY}&language=${language}`)
+            return this.get(`${whatToTarget}/latest?api_key=${process.env.TMDB_API_KEY}&language=${language}`)
         }
 
     }
