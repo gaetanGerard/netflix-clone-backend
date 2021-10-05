@@ -43,10 +43,10 @@ export const resolvers = {
     // resolver for CastUnion
     CastUnion: {
       __resolveType(obj) {
-        if(obj.title && obj.media_type === "movie") {
+        if(obj.title || obj.media_type === "movie") {
           return 'PeopleCastMovie'
         }
-        if (obj.name && obj.media_type === "tv") {
+        if (obj.name || obj.media_type === "tv") {
           return 'PeopleCastTV'
         }
         if(obj.media_type) {
@@ -59,10 +59,10 @@ export const resolvers = {
     // resolver for CrewUnion
     CrewUnion: {
       __resolveType(obj) {
-        if(obj.title && obj.media_type === "movie") {
+        if(obj.title || obj.media_type === "movie") {
           return 'PeopleCrewMovie'
         }
-        if (obj.name && obj.media_type === "tv") {
+        if (obj.name || obj.media_type === "tv") {
           return 'PeopleCrewTV'
         }
         return 'Crew'
