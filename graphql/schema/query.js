@@ -12,6 +12,10 @@ export const query = `
         Option : \n
             id: ID / (id of the movie) !! if ID not provided latest movie will be fetch !!
             language: String / en-US (default) Optional \n
+            appendToResponse: String / null (default) Optional \n
+                Option can be : aggregate_credits \n
+                                credits \n
+                                images \n
         """
         getSerie(id: ID, language: String, appendToResponse: String): Serie
 
@@ -30,7 +34,7 @@ export const query = `
         """
         getDiscover(media: String, language: String, sortBy: String, primaryReleaseDateGTE: String): Discover!
 
-        """ Query for Get Now Playing / Upcoming / Top rated / Popular movies \n
+        """ Query for Get Now Playing / Upcoming / Top rated / Popular / Similar / Recommendations Movies \n
         Option : \n
             whatToTarget: String / now_playing (default) !! Required !! \n
                 Option can be   upcoming \n
@@ -41,6 +45,17 @@ export const query = `
             region: String / US (default) Optional \n
         """
         getUpcomTopRatedPopuNowPlaying(whatToTarget: String, language: String, page: String, region: String, id: ID): ResultUnion!
+
+        """ Query for Get Similar / Recommendations TV \n
+        Option : \n
+            whatToTarget: String / now_playing (default) !! Required !! \n
+                Option can be   similar \n
+                                recommendations \n
+            language: String / en-US (default) Optional \n
+            page: String / 1 (default) Optional \n
+            region: String / US (default) Optional \n
+        """
+        getrecommendationOrSimilarTV(whatToTarget: String, language: String, page: String, id: ID): TVResult!
 
         """ Query for Get Credits for a Movie """
         getCredits(id: ID!, language: String): MediaCredits

@@ -138,8 +138,32 @@ export const resolvers = {
          *          otherwise it will return result for now_playing/upcoming/top_rated/popular movies
          */
         getUpcomTopRatedPopuNowPlaying: async (_, { whatToTarget, language, page, region, id }, { dataSources }) => {
+          const media = "movie";
           try {
-            return dataSources.moviesApi.getUpcomTopRatedPopuNowPlaying(whatToTarget, language, page, region, id);
+            return dataSources.moviesApi.getUpcomTopRatedPopuNowPlaying(media, whatToTarget, language, page, region, id);
+          } catch (error) {
+            console.log(error);
+          }
+        },
+
+        /**
+         * Function to fetch data for Upcoming movies / Now Playing Movies / Top Rated Movies / Popular Movies / Similar or Recommendations Movies
+         * @param {_} parent
+         * @param {whatToTarget} arguments (now_playing, upcoming, top_rated, popular, similar, recommendations) -> Required (now_playing as default)
+         * @param {media} arguments (movie, tv) -> Required (movie as default)
+         * @param {language} arguments (en-US) -> Optional (en-US as default)
+         * @param {page} arguments (1,2,...) -> Optional (1 as default)
+         * @param {region} arguments (US,FR,EN,...) -> Optional (US as default)
+         * @param {id} arguments -> Required if use Similar or Recommendations otherwise its optional
+         * @param {dataSources} fetch data from moviesAPI
+         * @returns if whatToTarget set to similar or recommendations an id is Required and it will display a list of similar/recommendations movies
+         *          otherwise it will return result for now_playing/upcoming/top_rated/popular movies
+         */
+        getrecommendationOrSimilarTV: async (_, { whatToTarget, language, page, id }, { dataSources }) => {
+          const media = "tv";
+          const region = "";
+          try {
+            return dataSources.moviesApi.getUpcomTopRatedPopuNowPlaying(media, whatToTarget, language, page, region, id);
           } catch (error) {
             console.log(error);
           }

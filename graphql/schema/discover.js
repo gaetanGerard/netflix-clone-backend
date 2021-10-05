@@ -42,6 +42,14 @@ export const discover = `
         total_results: Int!
     }
 
+    """ Schema for TV Result """
+    type TVResult {
+        page: Int!
+        results: [TVDiscover!]!
+        total_pages: Int!
+        total_results: Int!
+    }
+
     """ Schema of the object return for the result of similar or recommendations movies """
     type ResultWithDate {
         page: Int!
