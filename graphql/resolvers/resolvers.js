@@ -120,9 +120,11 @@ export const resolvers = {
          * @param {dataSources} fetch data from moviesAPI
          * @returns return object containing list of certifications
          */
-        getCertifications: async (_, { whatToTarget, media }, { dataSources }) => {
+        getCertifications: async (_, { media }, { dataSources }) => {
+          const whatToTarget = "certification";
+          const isNotCertif = false;
           try {
-            return dataSources.moviesApi.getCertifOrGenresOrCompany(whatToTarget, media);
+            return dataSources.moviesApi.getCertifOrGenresOrCompany(isNotCertif, whatToTarget, media);
           } catch (error) {
             console.log(error);
           }
@@ -136,9 +138,10 @@ export const resolvers = {
          * @returns return object containing list of genres
          */
         getGenres: async (_, { media }, { dataSources }) => {
-          const whatToTarget = "genre"
+          const whatToTarget = "genre";
+          const isNotCertif = false;
           try {
-            return dataSources.moviesApi.getCertifOrGenresOrCompany(whatToTarget, media);
+            return dataSources.moviesApi.getCertifOrGenresOrCompany(isNotCertif, whatToTarget, media);
           } catch (error) {
             console.log(error);
           }
@@ -154,8 +157,27 @@ export const resolvers = {
         getCompany: async (_, { id }, { dataSources }) => {
           const whatToTarget = "company"
           const media = "";
+          const isNotCertif = true;
           try {
-            return dataSources.moviesApi.getCertifOrGenresOrCompany(whatToTarget, media, id);
+            return dataSources.moviesApi.getCertifOrGenresOrCompany(isNotCertif, whatToTarget, media, id);
+          } catch (error) {
+            console.log(error);
+          }
+        },
+
+        /**
+         *  Resolver to get the Network
+         * @param {_} parent
+         * @param {id} arguments Required (id of the Network)
+         * @param {dataSources} fetch data from moviesAPI
+         * @returns return object containing Network detail
+         */
+         getNetwork: async (_, { id }, { dataSources }) => {
+          const whatToTarget = "network"
+          const media = "";
+          const isNotCertif = true;
+          try {
+            return dataSources.moviesApi.getCertifOrGenresOrCompany(isNotCertif, whatToTarget, media, id);
           } catch (error) {
             console.log(error);
           }

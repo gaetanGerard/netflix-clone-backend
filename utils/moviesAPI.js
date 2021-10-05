@@ -75,15 +75,16 @@ export class MoviesAPI extends RESTDataSource {
     /**
      *  Resolver to get the certifications or genres for TV and Movies
      * @param {_} parent
+     * @param {isNotCertif} arguments is define in resolver -> false as default
      * @param {whatToTarget} arguments is define in resolver
      * @param {media} arguments (movie, tv) -> Optional (movie as default)
      * @param {id} arguments  is Required if company is set
      * @returns return object containing list of certifications or Genres or companies
      */
-    async getCertifOrGenresOrCompany(whatToTarget = "certification", media = "movie", id) {
-        if(whatToTarget === "company") {
+    async getCertifOrGenresOrCompany(isNotCertif = false, whatToTarget = "certification", media = "movie", id) {
+        if(isNotCertif === true) {
             return this.get(`${whatToTarget}/${encodeURIComponent(id)}?api_key=${process.env.TMDB_API_KEY}`)
-        } else {
+        } else if (isNotCertif === false) {
             return this.get(`${whatToTarget}/${media}/list?api_key=${process.env.TMDB_API_KEY}`)
         }
 

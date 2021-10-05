@@ -60,5 +60,11 @@ export const query = `
         """
         getCompany(id: String): Company!
 
+        """ Query for Get Network
+            Option : \n
+                id: ID / id of network !! Required !! \n
+        """
+        getNetwork(id: ID!): Network!
+
     }
 `;
