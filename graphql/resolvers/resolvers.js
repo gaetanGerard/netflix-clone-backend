@@ -273,9 +273,10 @@ export const resolvers = {
         },
 
         /**
-         *  Resolver to get People
+         *  Resolver to get a Season for a TV Show
          * @param {_} parent
-         * @param {id} arguments Required (id of the People)
+         * @param {tvId} arguments Required (id of the TV Show)
+         * @param {seasonNumber} arguments Required (Number of the season for the TV Show)
          * @param {language} arguments Optional -> en-Us as default
          * @param {appendToResponse} arguments -> null as default
          * @param {dataSources} fetch data from moviesAPI
@@ -284,6 +285,25 @@ export const resolvers = {
         getSeason: async (_, { tvId, seasonNumber, language, appendToResponse }, { dataSources }) => {
           try {
             return dataSources.moviesApi.getTVSeasons(tvId, seasonNumber, language, appendToResponse);
+          } catch (error) {
+            console.log(error);
+          }
+        },
+
+        /**
+         *  Resolver to get an Episode of a Season for a TV Show
+         * @param {_} parent
+         * @param {tvId} arguments Required (id of the TV Show)
+         * @param {seasonNumber} arguments Required (Number of the season for the TV Show)
+         * @param {episodeNumber} arguments Required (Number of the episode for the TV Show)
+         * @param {language} arguments Optional -> en-Us as default
+         * @param {appendToResponse} arguments -> null as default
+         * @param {dataSources} fetch data from moviesAPI
+         * @returns return object containing People detail
+         */
+         getEpisode: async (_, { tvId, seasonNumber, episodeNumber, language, appendToResponse }, { dataSources }) => {
+          try {
+            return dataSources.moviesApi.getTVEpisodes(tvId, seasonNumber, episodeNumber, language, appendToResponse);
           } catch (error) {
             console.log(error);
           }

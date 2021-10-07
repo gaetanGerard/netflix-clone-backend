@@ -37,4 +37,9 @@ export const images = `
     type TVImages {
         posters: [BackdropAndPoster!]!
     }
+
+    """ Schema for TV Episode Images """
+    type TVEpisodeImages {
+        stills: [BackdropAndPoster!]!
+    }
 `;

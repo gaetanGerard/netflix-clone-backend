@@ -138,6 +138,14 @@ export const credits = `
         crew: [Crew!]!
     }
 
+    """ Schema for return Credits result for an Episode of a TV Show """
+    type TVEpisodeCredits {
+        id: ID
+        guest_stars: [GuestStar!]!
+        cast: [Cast!]!
+        crew: [Crew!]!
+    }
+
     """ Schema for return result of credits for a movie """
     type MediaCredits {
         id: ID

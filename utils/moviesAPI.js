@@ -129,6 +129,22 @@ export class MoviesAPI extends RESTDataSource {
         } else if (appendToResponse){
             return this.get(`tv/${encodeURIComponent(tvId)}/season/${seasonNumber}?api_key=${process.env.TMDB_API_KEY}&language=${language}&append_to_response=${appendToResponse}`)
         }
+    }
 
+    /**
+     *  Function to get TV Episode
+     * @param {tvId} arguments Required (id of the TV Show)
+     * @param {seasonNumber} arguments Required (Number of the season for the TV Show)
+     * @param {episodeNumber} arguments Required (Number of the Episode for the TV Show)
+     * @param {language} arguments Optional -> en-Us as default
+     * @param {appendToResponse} arguments -> null as default
+     * @returns return object containing Season detail
+     */
+    async getTVEpisodes(tvId, seasonNumber = "1", episodeNumber = "1", language = "en-US", appendToResponse = null) {
+        if(appendToResponse === null) {
+            return this.get(`tv/${encodeURIComponent(tvId)}/season/${seasonNumber}/episode/${episodeNumber}?api_key=${process.env.TMDB_API_KEY}&language=${language}`)
+        } else if (appendToResponse){
+            return this.get(`tv/${encodeURIComponent(tvId)}/season/${seasonNumber}/episode/${episodeNumber}?api_key=${process.env.TMDB_API_KEY}&language=${language}&append_to_response=${appendToResponse}`)
+        }
     }
 }

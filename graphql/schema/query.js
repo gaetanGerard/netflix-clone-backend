@@ -107,7 +107,7 @@ export const query = `
         """ Query for Get a Season for a TV show
         Option : \n
             tvId: ID / id of TV show !! Required !! \n
-            seasonNumber: ID / 1 (default) season number of TV show !! Required !! \n
+            seasonNumber: String / 1 (default) season number of TV show !! Required !! \n
             language: String / en-US (default) Optional \n
             append_to_response: String / null as (default) Optional \n
                 Option can be :     aggregate_credits \n
@@ -115,6 +115,18 @@ export const query = `
                                     images \n
     """
     getSeason(tvId: ID!, seasonNumber: String!, language: String, appendToResponse: String): TVSeason!
+
+    """ Query for Get a Episode of a Season for a TV show
+    Option : \n
+        tvId: ID / id of TV show !! Required !! \n
+        seasonNumber: String / 1 (default) season number of TV show !! Required !! \n
+        episodeNumber: String / 1 (default) episode number of TV show !! Required !! \n
+        language: String / en-US (default) Optional \n
+        append_to_response: String / null as (default) Optional \n
+            Option can be :     credits \n
+                                images \n
+    """
+    getEpisode(tvId: ID!, seasonNumber: String!, episodeNumber: String!, language: String, appendToResponse: String): TVEpisode!
 
     }
 `;

@@ -13,5 +13,7 @@ export const tvEpisodes = `
         still_path: String!
         vote_average: Float!
         vote_count: Int!
+        credits: TVEpisodeCredits
+        images: TVEpisodeImages
     }
 `;
