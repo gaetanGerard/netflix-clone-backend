@@ -1,4 +1,19 @@
 export const credits = `
+    """ Schema for a Guest Star member for a Episode """
+    type GuestStar {
+        adult: Boolean!
+        gender: Int
+        id: ID!
+        known_for_department: String!
+        name: String!
+        original_name: String!
+        popularity: Float!
+        profile_path: String
+        character: String!
+        credit_id: String!
+        order: Int!
+    }
+
     """ Schema for a Cast member for a movie """
     type Cast {
         adult: Boolean!
@@ -156,11 +171,13 @@ export const credits = `
         popularity: Float!
         profile_path: String
         jobs: [Job!]!
+        department: String
         total_episode_count: Int!
     }
 
     """ Schema for Aggregate Credits for TV """
     type AggregateCreditsTV {
+        id: ID
         cast: [AggregateTVCast!]!
         crew: [AggregateTVCrew!]!
     }

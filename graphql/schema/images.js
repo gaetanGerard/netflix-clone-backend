@@ -32,4 +32,9 @@ export const images = `
         backdrops: [BackdropAndPoster!]!
         posters: [BackdropAndPoster!]!
     }
+
+    """ Schema for TV Season Images """
+    type TVImages {
+        posters: [BackdropAndPoster!]!
+    }
 `;

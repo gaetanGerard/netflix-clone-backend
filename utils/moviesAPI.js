@@ -11,7 +11,7 @@ export class MoviesAPI extends RESTDataSource {
     }
 
     /**
-     *  Resolver to Fetch one movie or Serie if id is provided otherwise latest movie or Serie added is fetch
+     *  Function to Fetch one movie or Serie if id is provided otherwise latest movie or Serie added is fetch
      * @param {whatToTarget} arguments define in resolver
      * @param {id} arguments of the movie if not provided latest movie added will be fetch -> Optional
      * @param {language} arguments (en-US) -> Optional (en-US as default) language on this format
@@ -32,7 +32,7 @@ export class MoviesAPI extends RESTDataSource {
     }
 
     /**
-     *  Resolver to Fetch a Discover list of movies or series
+     *  Function to Fetch a Discover list of movies or series
      * @param {whatToTarget} arguments (discover) -> Optional (discover as default)
      * @param {media} arguments (movie,tv) -> Required (movie as default)
      * @param {language} arguments (en-US) -> Optional (en-US as default) language on this format
@@ -50,7 +50,7 @@ export class MoviesAPI extends RESTDataSource {
     }
 
     /**
-     * Function to fetch data for Upcoming movies / Now Playing Movies / Top Rated Movies / Popular Movies / Similar or Recommendations Movies
+     * Function to fetch data for Upcoming movies / Now Playing Movies / Top Rated Movies/TV / Popular Movies/TV / Similar or Recommendations Movies/TV / On The air and Airing Today TV
      * @param {whatToTarget} arguments (now_playing, upcoming, top_rated, popular, similar, recommendations) -> Required (now_playing as default)
      * @param {media} arguments (movie, tv) -> Required (movie as default)
      * @param {language} arguments (en-US) -> Optional (en-US as default)
@@ -73,7 +73,7 @@ export class MoviesAPI extends RESTDataSource {
     }
 
     /**
-     *  Resolver to credits of a movie
+     *  Function to credits of a movie
      * @param {id} arguments id of the movie -> Required
      * @param {language} arguments (en-US) -> Optional (en-US as default) language on this format
      * @returns return object containing list of cast and crew
@@ -83,8 +83,7 @@ export class MoviesAPI extends RESTDataSource {
     }
 
     /**
-     *  Resolver to get the certifications or genres for TV and Movies
-     * @param {_} parent
+     *  Function to get the certifications or genres for TV and Movies
      * @param {isNotCertif} arguments is define in resolver -> false as default
      * @param {whatToTarget} arguments is define in resolver
      * @param {media} arguments (movie, tv) -> Optional (movie as default)
@@ -101,12 +100,10 @@ export class MoviesAPI extends RESTDataSource {
     }
 
     /**
-     *  Resolver to get People
-     * @param {_} parent
+     *  Function to get People
      * @param {id} arguments Required (id of the People)
      * @param {language} arguments Optional -> en-Us as default
      * @param {appendToResponse} arguments -> null as default
-     * @param {dataSources} fetch data from moviesAPI
      * @returns return object containing People detail
      */
      async getPeopleWithAppendToResponse(id, language = "en-US", appendToResponse = null) {
@@ -115,6 +112,23 @@ export class MoviesAPI extends RESTDataSource {
          } else if (appendToResponse){
             return this.get(`person/${encodeURIComponent(id)}?api_key=${process.env.TMDB_API_KEY}&language=${language}&append_to_response=${appendToResponse}`)
          }
+
+    }
+
+    /**
+     *  Function to get TV Seasons
+     * @param {tvId} arguments Required (id of the TV Show)
+     * @param {seasonNumber} arguments Required (Number of the season for the TV Show)
+     * @param {language} arguments Optional -> en-Us as default
+     * @param {appendToResponse} arguments -> null as default
+     * @returns return object containing Season detail
+     */
+    async getTVSeasons(tvId, seasonNumber = "1", language = "en-US", appendToResponse = null) {
+        if(appendToResponse === null) {
+            return this.get(`tv/${encodeURIComponent(tvId)}/season/${seasonNumber}?api_key=${process.env.TMDB_API_KEY}&language=${language}`)
+        } else if (appendToResponse){
+            return this.get(`tv/${encodeURIComponent(tvId)}/season/${seasonNumber}?api_key=${process.env.TMDB_API_KEY}&language=${language}&append_to_response=${appendToResponse}`)
+        }
 
     }
 }

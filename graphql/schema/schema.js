@@ -11,6 +11,8 @@ import {certifications} from './certifications.js';
 import {networks} from './networks.js';
 import {people} from './people.js';
 import {movie} from './movie.js';
+import {tvSeasons} from './tvSeasons.js';
+import {tvEpisodes} from './tvEpisodes.js';
 import {tv} from './tv.js';
 
 
@@ -24,6 +26,8 @@ export const schema = gql`
     ${people}
     ${movie}
     ${tv}
+    ${tvSeasons}
+    ${tvEpisodes}
     ${union}
     ${query}
 

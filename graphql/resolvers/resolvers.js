@@ -125,7 +125,7 @@ export const resolvers = {
         },
 
         /**
-         * Function to fetch data for Upcoming movies / Now Playing Movies / Top Rated Movies / Popular Movies / Similar or Recommendations Movies
+         * Resolver to fetch data for Upcoming movies / Now Playing Movies / Top Rated Movies / Popular Movies / Similar or Recommendations Movies
          * @param {_} parent
          * @param {whatToTarget} arguments (now_playing, upcoming, top_rated, popular, similar, recommendations) -> Required (now_playing as default)
          * @param {media} arguments (movie, tv) -> Required (movie as default)
@@ -147,7 +147,7 @@ export const resolvers = {
         },
 
         /**
-         * Function to fetch data for Upcoming movies / Now Playing Movies / Top Rated Movies / Popular Movies / Similar or Recommendations Movies
+         * Resolver to fetch data for Upcoming movies / Now Playing Movies / Top Rated Movies / Popular Movies / Similar or Recommendations Movies
          * @param {_} parent
          * @param {whatToTarget} arguments (now_playing, upcoming, top_rated, popular, similar, recommendations) -> Required (now_playing as default)
          * @param {media} arguments (movie, tv) -> Required (movie as default)
@@ -267,6 +267,23 @@ export const resolvers = {
          getPeople: async (_, { id, language, appendToResponse }, { dataSources }) => {
           try {
             return dataSources.moviesApi.getPeopleWithAppendToResponse(id, language, appendToResponse);
+          } catch (error) {
+            console.log(error);
+          }
+        },
+
+        /**
+         *  Resolver to get People
+         * @param {_} parent
+         * @param {id} arguments Required (id of the People)
+         * @param {language} arguments Optional -> en-Us as default
+         * @param {appendToResponse} arguments -> null as default
+         * @param {dataSources} fetch data from moviesAPI
+         * @returns return object containing People detail
+         */
+        getSeason: async (_, { tvId, seasonNumber, language, appendToResponse }, { dataSources }) => {
+          try {
+            return dataSources.moviesApi.getTVSeasons(tvId, seasonNumber, language, appendToResponse);
           } catch (error) {
             console.log(error);
           }

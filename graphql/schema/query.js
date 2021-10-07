@@ -99,10 +99,22 @@ export const query = `
                 append_to_response: String / null as (default) Optional \n
                     Option can be :     movie_credits \n
                                         tv_credits \n
-                                        combined_credits
-                                        images
+                                        combined_credits \n
+                                        images \n
         """
         getPeople(id: ID!, language: String, appendToResponse: String): People!
+
+        """ Query for Get a Season for a TV show
+        Option : \n
+            tvId: ID / id of TV show !! Required !! \n
+            seasonNumber: ID / 1 (default) season number of TV show !! Required !! \n
+            language: String / en-US (default) Optional \n
+            append_to_response: String / null as (default) Optional \n
+                Option can be :     aggregate_credits \n
+                                    credits \n
+                                    images \n
+    """
+    getSeason(tvId: ID!, seasonNumber: String!, language: String, appendToResponse: String): TVSeason!
 
     }
 `;
