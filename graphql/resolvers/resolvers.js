@@ -69,6 +69,33 @@ export const resolvers = {
       }
     },
 
+    // Resolver for TVMovieUnion
+    TVMovieUnion: {
+      __resolveType(obj) {
+        if (obj.media_type === "movie") {
+          return 'MoviesDiscover'
+        }
+        if (obj.media_type === "tv") {
+          return 'TVDiscover'
+        }
+      }
+    },
+
+    // Resolver for TrendingUnion
+    TrendingUnion: {
+      __resolveType(obj) {
+        if (obj.media_type === "movie") {
+          return 'MoviesDiscover'
+        }
+        if (obj.media_type === "tv") {
+          return 'TVDiscover'
+        }
+        if (obj.media_type === "person") {
+          return 'TrendingPeople'
+        }
+      }
+    },
+
     Query: {
         /**
          *  Resolver to Fetch one movie if id is provided otherwise latest movie added is fetch
@@ -280,7 +307,7 @@ export const resolvers = {
          * @param {language} arguments Optional -> en-Us as default
          * @param {appendToResponse} arguments -> null as default
          * @param {dataSources} fetch data from moviesAPI
-         * @returns return object containing People detail
+         * @returns return object containing Season for a TV Show detail
          */
         getSeason: async (_, { tvId, seasonNumber, language, appendToResponse }, { dataSources }) => {
           try {
@@ -299,11 +326,28 @@ export const resolvers = {
          * @param {language} arguments Optional -> en-Us as default
          * @param {appendToResponse} arguments -> null as default
          * @param {dataSources} fetch data from moviesAPI
-         * @returns return object containing People detail
+         * @returns return object containing Episode for a TV Show detail
          */
          getEpisode: async (_, { tvId, seasonNumber, episodeNumber, language, appendToResponse }, { dataSources }) => {
           try {
             return dataSources.moviesApi.getTVEpisodes(tvId, seasonNumber, episodeNumber, language, appendToResponse);
+          } catch (error) {
+            console.log(error);
+          }
+        },
+
+        /**
+         *  Function to get Trending
+         * @param {_} parent
+         * @param {mediaType} arguments Required (parameter between all,movie,tv,person) -> all as default
+         * @param {timeWindow} arguments Required (time window to fetch data betwee day,week) -> week as default
+         * @param {language} arguments Optional -> en-Us as default
+         * @param {dataSources} fetch data from moviesAPI
+         * @returns return object containing TV/Movie/Person detail
+         */
+         getTrending: async (_, { mediaType, timeWindow, language, page }, { dataSources }) => {
+          try {
+            return dataSources.moviesApi.getTrending(mediaType, timeWindow, language, page);
           } catch (error) {
             console.log(error);
           }

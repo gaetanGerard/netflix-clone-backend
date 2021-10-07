@@ -9,4 +9,8 @@ export const union = `
     union CastUnion = Cast | PeopleCastMovie | PeopleCastTV
     """ Union between Crew and PeopleCrew Movie/TV and Combined """
     union CrewUnion = Crew | PeopleCrewMovie | PeopleCrewTV
+    """ Union between TVDiscover and MovieDisover for TrendingPeople """
+    union TVMovieUnion = TVDiscover | MoviesDiscover
+    """ Union between TVDiscover and MovieDisover and TrendingPeople for TrendingUnion """
+    union TrendingUnion = TVDiscover | MoviesDiscover | TrendingPeople
 `;

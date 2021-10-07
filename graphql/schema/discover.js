@@ -8,30 +8,32 @@ export const discover = `
         original_language: String!
         original_title: String!
         overview: String!
-        popularity: Float!
+        popularity: Float
         poster_path: String
         release_date: String!
         title: String!
         video: Boolean!
         vote_average: Float!
         vote_count: Int!
+        media_type: String
     }
 
     """ Schema for TV Discover """
     type TVDiscover {
         id: ID!
         poster_path: String
-        popularity: Float!
+        popularity: Float
         backdrop_path: String
         vote_average: Float!
         overview: String!
         first_air_date: String!
         origin_country: [String!]!
-        genre_ids: [Int!]!
+        genre_ids: [Int]
         original_language: String!
         vote_count: Int!
         name: String!
         original_name: String!
+        media_type: String
     }
 
     """ Schema of the object result of Discover works for movies and series """

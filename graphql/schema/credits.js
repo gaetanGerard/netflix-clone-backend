@@ -55,7 +55,7 @@ export const credits = `
         adult: Boolean!
         vote_average: Float!
         title: String!
-        genre_ids: [Int!]!
+        genre_ids: [Int]
         original_language: String!
         original_title: String!
         popularity: Float!
@@ -80,7 +80,7 @@ export const credits = `
         backdrop_path: String
         title: String!
         popularity: Float!
-        genre_ids: [Int!]!
+        genre_ids: [Int]
         vote_average: Float!
         adult: Boolean!
         release_date: String
@@ -93,7 +93,7 @@ export const credits = `
         credit_id: String!
         original_name: String!
         id: ID!
-        genre_ids: [Int!]!
+        genre_ids: [Int]
         character: String!
         name: String!
         poster_path: String
@@ -119,7 +119,7 @@ export const credits = `
         overview: String!
         origin_country: [String!]!
         original_name: String!
-        genre_ids: [Int!]!
+        genre_ids: [Int]
         name: String!
         first_air_date: String
         backdrop_path: String

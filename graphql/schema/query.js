@@ -128,5 +128,20 @@ export const query = `
     """
     getEpisode(tvId: ID!, seasonNumber: String!, episodeNumber: String!, language: String, appendToResponse: String): TVEpisode!
 
+    """ Query for Get a Trending for TV/Movie/Person
+    Option : \n
+        mediaType: String / all (default) !! Required !! \n
+            Option can be :     all \n
+                                movie \n
+                                tv \n
+                                person \n
+        timeWindow: String / week (default) !! Required !! \n
+            Option can be :     day \n
+                                week \n
+        language: String / en-US (default) Optional \n
+        page: String / 1 (default) Optional \n
+    """
+    getTrending(mediaType: String!, timeWindow: String!, language: String, page: String): Trending!
+
     }
 `;

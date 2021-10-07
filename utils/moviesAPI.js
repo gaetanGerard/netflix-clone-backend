@@ -147,4 +147,15 @@ export class MoviesAPI extends RESTDataSource {
             return this.get(`tv/${encodeURIComponent(tvId)}/season/${seasonNumber}/episode/${episodeNumber}?api_key=${process.env.TMDB_API_KEY}&language=${language}&append_to_response=${appendToResponse}`)
         }
     }
+
+    /**
+     *  Function to get Trending
+     * @param {mediaType} arguments Required (parameter between all,movie,tv,person) -> all as default
+     * @param {timeWindow} arguments Required (time window to fetch data betwee day,week) -> week as default
+     * @param {language} arguments Optional -> en-Us as default
+     * @returns return object containing TV/Movie/Person detail
+     */
+    async getTrending(mediaType = "all", timeWindow = "week", language = "en-US", page = "1") {
+        return this.get(`trending/${mediaType}/${timeWindow}?api_key=${process.env.TMDB_API_KEY}&language=${language}&page=${page}`)
+    }
 }
