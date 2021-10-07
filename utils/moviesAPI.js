@@ -62,7 +62,11 @@ export class MoviesAPI extends RESTDataSource {
      */
     async getUpcomTopRatedPopuNowPlaying(media, whatToTarget = "now_playing", language = "en-US", page = "1", region = "US", id) {
         if(whatToTarget === "similar" || whatToTarget === "recommendations") {
-            return this.get(`${media}/${encodeURIComponent(id)}/${whatToTarget}?api_key=${process.env.TMDB_API_KEY}&language=${language}&page=${page}`)
+            if(media === "tv" && (id === null || id.length === 0 )) {
+                return this.get(`${media}/${whatToTarget}?api_key=${process.env.TMDB_API_KEY}&language=${language}&page=${page}`)
+            } else {
+                return this.get(`${media}/${encodeURIComponent(id)}/${whatToTarget}?api_key=${process.env.TMDB_API_KEY}&language=${language}&page=${page}`)
+            }
         } else {
             return this.get(`${media}/${whatToTarget}?api_key=${process.env.TMDB_API_KEY}&language=${language}&page=${page}&region=${region}`)
         }

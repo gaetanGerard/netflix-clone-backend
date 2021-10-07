@@ -51,11 +51,15 @@ export const query = `
             whatToTarget: String / now_playing (default) !! Required !! \n
                 Option can be   similar \n
                                 recommendations \n
+                                airing_today \n
+                                on_the_air \n
+                                popular \n
+                                top_rated \n
             language: String / en-US (default) Optional \n
             page: String / 1 (default) Optional \n
             region: String / US (default) Optional \n
         """
-        getrecommendationOrSimilarTV(whatToTarget: String, language: String, page: String, id: ID): TVResult!
+        getUpcomTopRatedPopuNowPlayingTV(whatToTarget: String, language: String, page: String, id: ID): TVResult!
 
         """ Query for Get Credits for a Movie """
         getCredits(id: ID!, language: String): MediaCredits

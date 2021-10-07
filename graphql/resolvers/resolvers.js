@@ -159,7 +159,7 @@ export const resolvers = {
          * @returns if whatToTarget set to similar or recommendations an id is Required and it will display a list of similar/recommendations movies
          *          otherwise it will return result for now_playing/upcoming/top_rated/popular movies
          */
-        getrecommendationOrSimilarTV: async (_, { whatToTarget, language, page, id }, { dataSources }) => {
+         getUpcomTopRatedPopuNowPlayingTV: async (_, { whatToTarget, language, page, id }, { dataSources }) => {
           const media = "tv";
           const region = "";
           try {
