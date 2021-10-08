@@ -158,4 +158,35 @@ export class MoviesAPI extends RESTDataSource {
     async getTrending(mediaType = "all", timeWindow = "week", language = "en-US", page = "1") {
         return this.get(`trending/${mediaType}/${timeWindow}?api_key=${process.env.TMDB_API_KEY}&language=${language}&page=${page}`)
     }
+
+    /**
+     *  Function to get a Collection for a movie
+     * @param {collectionID} arguments Required ID of the collection
+     * @param {language} arguments Optional -> en-Us as default
+     * @returns return object containing Movie detail part of a collection
+     */
+    async getCollection(collectionID, language = "en-US") {
+        return this.get(`collection/${encodeURIComponent(collectionID)}?api_key=${process.env.TMDB_API_KEY}&language=${language}`)
+    }
+
+    /**
+     *  Function to get Search Result
+     * @param {whatToTarget} arguments Required (parameter between company,collection,movie,multi,person,tv) -> movie as default
+     * @param {query} arguments Required what you are looking for
+     * @param {language} arguments Optional -> en-Us as default
+     * @param {page} arguments Optional -> 1 as default
+     * @param {includeAdult} arguments Optional -> false as default
+     * @param {region} arguments Optional -> US as default
+     * @param {firstAirDateYear} arguments Optional -> 2018 as default
+     * @returns return object containing result of your search
+     */
+    async getSearch(whatToTarget, query, language = "en-US", page = "1", includeAdult = false, region = "US", firstAirDateYear = "2018") {
+        if (whatToTarget === "movie" || whatToTarget === "person" || whatToTarget === "multi") {
+            return this.get(`search/${whatToTarget}?api_key=${process.env.TMDB_API_KEY}&query=${encodeURIComponent(query)}&language=${language}&page=${page}&include_adult=${includeAdult}&region=${region}`)
+        } else if(whatToTarget === "tv") {
+            return this.get(`search/${whatToTarget}?api_key=${process.env.TMDB_API_KEY}&query=${encodeURIComponent(query)}&language=${language}&page=${page}&include_adult=${includeAdult}&first_air_date_year=${firstAirDateYear}`)
+        } else if (whatToTarget === "collection" || whatToTarget === "company"){
+            return this.get(`search/${whatToTarget}?api_key=${process.env.TMDB_API_KEY}&query=${encodeURIComponent(query)}&language=${language}&page=${page}`)
+        }
+    }
 }

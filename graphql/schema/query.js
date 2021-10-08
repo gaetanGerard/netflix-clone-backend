@@ -143,5 +143,12 @@ export const query = `
     """
     getTrending(mediaType: String!, timeWindow: String!, language: String, page: String): Trending!
 
+    """ Query for Get a Collection of a Movie
+    Option : \n
+    collectionID: ID / id of Collection !! Required !! \n
+        language: String / en-US (default) Optional \n
+    """
+    getCollection(collectionID: ID!, language: String): Collection!
+
     }
 `;

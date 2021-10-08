@@ -186,7 +186,7 @@ export const resolvers = {
          * @returns if whatToTarget set to similar or recommendations an id is Required and it will display a list of similar/recommendations movies
          *          otherwise it will return result for now_playing/upcoming/top_rated/popular movies
          */
-         getUpcomTopRatedPopuNowPlayingTV: async (_, { whatToTarget, language, page, id }, { dataSources }) => {
+        getUpcomTopRatedPopuNowPlayingTV: async (_, { whatToTarget, language, page, id }, { dataSources }) => {
           const media = "tv";
           const region = "";
           try {
@@ -271,7 +271,7 @@ export const resolvers = {
          * @param {dataSources} fetch data from moviesAPI
          * @returns return object containing Network detail
          */
-         getNetwork: async (_, { id }, { dataSources }) => {
+        getNetwork: async (_, { id }, { dataSources }) => {
           const whatToTarget = "network"
           const media = "";
           const isNotCertif = true;
@@ -291,7 +291,7 @@ export const resolvers = {
          * @param {dataSources} fetch data from moviesAPI
          * @returns return object containing People detail
          */
-         getPeople: async (_, { id, language, appendToResponse }, { dataSources }) => {
+        getPeople: async (_, { id, language, appendToResponse }, { dataSources }) => {
           try {
             return dataSources.moviesApi.getPeopleWithAppendToResponse(id, language, appendToResponse);
           } catch (error) {
@@ -328,7 +328,7 @@ export const resolvers = {
          * @param {dataSources} fetch data from moviesAPI
          * @returns return object containing Episode for a TV Show detail
          */
-         getEpisode: async (_, { tvId, seasonNumber, episodeNumber, language, appendToResponse }, { dataSources }) => {
+        getEpisode: async (_, { tvId, seasonNumber, episodeNumber, language, appendToResponse }, { dataSources }) => {
           try {
             return dataSources.moviesApi.getTVEpisodes(tvId, seasonNumber, episodeNumber, language, appendToResponse);
           } catch (error) {
@@ -345,9 +345,25 @@ export const resolvers = {
          * @param {dataSources} fetch data from moviesAPI
          * @returns return object containing TV/Movie/Person detail
          */
-         getTrending: async (_, { mediaType, timeWindow, language, page }, { dataSources }) => {
+        getTrending: async (_, { mediaType, timeWindow, language, page }, { dataSources }) => {
           try {
             return dataSources.moviesApi.getTrending(mediaType, timeWindow, language, page);
+          } catch (error) {
+            console.log(error);
+          }
+        },
+
+        /**
+         *  Resolver to get a Collection for a movie
+         * @param {_} parent
+         * @param {collectionID} arguments Required ID of the collection
+         * @param {language} arguments Optional -> en-Us as default
+         * @param {dataSources} fetch data from moviesAPI
+         * @returns return object containing Movie detail part of a collection
+         */
+        getCollection: async (_, { collectionID, language }, { dataSources }) => {
+          try {
+            return dataSources.moviesApi.getCollection(collectionID, language);
           } catch (error) {
             console.log(error);
           }
