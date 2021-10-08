@@ -13,4 +13,8 @@ export const union = `
     union TVMovieUnion = TVDiscover | MoviesDiscover
     """ Union between TVDiscover and MovieDisover and TrendingPeople for TrendingUnion """
     union TrendingUnion = TVDiscover | MoviesDiscover | TrendingPeople
+    """ Union between MoviesDiscover, DiscoverTV and TrendingPeople for MovieTVPeopleUnion """
+    union MovieTVPeopleUnion = MoviesDiscover | TVDiscover | TrendingPeople
+    """ Union between ProductionCompanies and SearchCollection for SearchCompOrColl """
+    union SearchCompOrCollUnion = ProductionCompanies | SearchCollection
 `;

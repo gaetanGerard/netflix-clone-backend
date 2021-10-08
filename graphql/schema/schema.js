@@ -16,6 +16,7 @@ import {tvEpisodes} from './tvEpisodes.js';
 import {tv} from './tv.js';
 import {trending} from './trending.js';
 import {collection} from './collection.js';
+import {search} from './search.js';
 
 
 export const schema = gql`
@@ -32,6 +33,7 @@ export const schema = gql`
     ${tvEpisodes}
     ${trending}
     ${collection}
+    ${search}
     ${union}
     ${query}
 

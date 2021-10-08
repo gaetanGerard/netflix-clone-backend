@@ -150,5 +150,42 @@ export const query = `
     """
     getCollection(collectionID: ID!, language: String): Collection!
 
+    """ Query for Get a Result for search Company or Collection
+    Option : \n
+        whatToTarget: String / movie (default) !! Required !! \n
+            Option can be : company \n
+                            collection \n
+        query: String / Query to search for !! Required !! \n
+        language: String / en-US (default) Optional \n
+        page: String / 1 (default) Optional \n
+    """
+    getSearchCompOrColl(whatToTarget: String!, query: String!, language: String, page: String): SearchCompOrColl!
+
+    """ Query for Get a Result for search Movie, TV or Person
+    Option : \n
+        whatToTarget: String / movie (default) !! Required !! \n
+            Option can be : movie \n
+                            tv \n
+                            person \n
+        query: String / Query to search for !! Required !! \n
+        language: String / en-US (default) Optional \n
+        page: String / 1 (default) Optional \n
+        includeAdult: Boolean / false (default) Optional \n
+        region: String / US (default) Optional \n
+        primaryReleaseYear: String / null (default) Optional \n
+        year: String / null (default) Optional \n
+    """
+    getSearchMoviesTVOrPeople(whatToTarget: String!, query: String!, language: String, page: String, includeAdult: Boolean, region: String, primaryReleaseYear: String, year: String ): SearchMoviesTVOrPeople!
+
+    """ Query for Get a Result for search Multi
+    Option : \n
+        query: String / Query to search for !! Required !! \n
+        language: String / en-US (default) Optional \n
+        page: String / 1 (default) Optional \n
+        includeAdult: Boolean / false (default) Optional \n
+        region: String / US (default) Optional \n
+    """
+    getSearchMulti(query: String!, language: String, page: String, includeAdult: Boolean, region: String): SearchMulti!
+
     }
 `;

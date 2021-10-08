@@ -28,7 +28,7 @@ export const people = `
         id: ID!
         profile_path: String
         name: String!
-        known_for_department: String!
+        known_for_department: String
         known_for: [TVMovieUnion!]!
         popularity: Float
         media_type: String

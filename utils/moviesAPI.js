@@ -177,16 +177,21 @@ export class MoviesAPI extends RESTDataSource {
      * @param {page} arguments Optional -> 1 as default
      * @param {includeAdult} arguments Optional -> false as default
      * @param {region} arguments Optional -> US as default
-     * @param {firstAirDateYear} arguments Optional -> 2018 as default
+     * @param {firstAirDateYear} arguments Optional -> 1900 as default (work for movie and tv)
+     * @param {year} arguments Optional -> 1900 as default (for movie)
      * @returns return object containing result of your search
      */
-    async getSearch(whatToTarget, query, language = "en-US", page = "1", includeAdult = false, region = "US", firstAirDateYear = "2018") {
-        if (whatToTarget === "movie" || whatToTarget === "person" || whatToTarget === "multi") {
-            return this.get(`search/${whatToTarget}?api_key=${process.env.TMDB_API_KEY}&query=${encodeURIComponent(query)}&language=${language}&page=${page}&include_adult=${includeAdult}&region=${region}`)
-        } else if(whatToTarget === "tv") {
-            return this.get(`search/${whatToTarget}?api_key=${process.env.TMDB_API_KEY}&query=${encodeURIComponent(query)}&language=${language}&page=${page}&include_adult=${includeAdult}&first_air_date_year=${firstAirDateYear}`)
-        } else if (whatToTarget === "collection" || whatToTarget === "company"){
-            return this.get(`search/${whatToTarget}?api_key=${process.env.TMDB_API_KEY}&query=${encodeURIComponent(query)}&language=${language}&page=${page}`)
+    async getSearch(whatToTarget, query, language = "en-US", page = "1", includeAdult = false, region = "US", firstAirDateYear, year) {
+        switch (whatToTarget) {
+            case "movie":
+                return this.get(`search/${whatToTarget}?api_key=${process.env.TMDB_API_KEY}&query=${encodeURIComponent(query)}&language=${language}&page=${page}&include_adult=${includeAdult}&region=${region}&primary_release_year=${firstAirDateYear}&year=${year}`)
+            case "tv":
+                return this.get(`search/${whatToTarget}?api_key=${process.env.TMDB_API_KEY}&query=${encodeURIComponent(query)}&language=${language}&page=${page}&include_adult=${includeAdult}&first_air_date_year=${firstAirDateYear}`);
+            case "person":
+            case "multi":
+                return this.get(`search/${whatToTarget}?api_key=${process.env.TMDB_API_KEY}&query=${encodeURIComponent(query)}&language=${language}&page=${page}&include_adult=${includeAdult}&region=${region}`);
+            default:
+                return this.get(`search/${whatToTarget}?api_key=${process.env.TMDB_API_KEY}&query=${encodeURIComponent(query)}&language=${language}&page=${page}`)
         }
     }
 }

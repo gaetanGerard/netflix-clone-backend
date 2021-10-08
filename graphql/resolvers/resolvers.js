@@ -96,6 +96,34 @@ export const resolvers = {
       }
     },
 
+    // Resolver for SearchCompOrCollUnion
+    SearchCompOrCollUnion: {
+      __resolveType(obj) {
+        if (obj.name && !obj.original_name) {
+          return 'ProductionCompanies'
+        }
+        if (obj.original_name) {
+          return 'SearchCollection'
+        }
+        return null
+      }
+    },
+
+    // Resolver for MovieTVPeopleUnion
+    MovieTVPeopleUnion: {
+      __resolveType(obj) {
+        if (obj.title && !obj.known_for) {
+          return 'MoviesDiscover'
+        }
+        if (obj.name && !obj.known_for) {
+          return 'TVDiscover'
+        }
+        if (obj.known_for) {
+          return 'TrendingPeople'
+        }
+      }
+    },
+
     Query: {
         /**
          *  Resolver to Fetch one movie if id is provided otherwise latest movie added is fetch
@@ -364,6 +392,66 @@ export const resolvers = {
         getCollection: async (_, { collectionID, language }, { dataSources }) => {
           try {
             return dataSources.moviesApi.getCollection(collectionID, language);
+          } catch (error) {
+            console.log(error);
+          }
+        },
+
+        /**
+         *  Resolver to get Search result for Collection or Company
+         * @param {_} parent
+         * @param {whatToTarget} arguments Required (parameter between company,collection) -> movie as default
+         * @param {query} arguments Required what you are looking for
+         * @param {language} arguments Optional -> en-Us as default
+         * @param {page} arguments Optional -> 1 as default
+         * @param {dataSources} fetch data from moviesAPI
+         * @returns return object containing result for search of company or collection
+         */
+        getSearchCompOrColl: async (_, { whatToTarget, query, language, page }, { dataSources }) => {
+          try {
+            return dataSources.moviesApi.getSearch(whatToTarget, query, language, page);
+          } catch (error) {
+            console.log(error);
+          }
+        },
+
+        /**
+         *  Resolver to get Search result for movie, tv or person
+         * @param {_} parent
+         * @param {whatToTarget} arguments Required (parameter between movie,person,tv) -> movie as default
+         * @param {query} arguments Required what you are looking for
+         * @param {language} arguments Optional -> en-Us as default
+         * @param {page} arguments Optional -> 1 as default
+         * @param {includeAdult} arguments Optional -> false as default
+         * @param {region} arguments Optional -> US as default
+         * @param {primaryReleaseYear} arguments Optional -> null as default (work for movie and tv)
+         * @param {year} arguments Optional -> null as default (for movie)
+         * @param {dataSources} fetch data from moviesAPI
+         * @returns return object containing result for search of movie, tv or person
+         */
+        getSearchMoviesTVOrPeople: async (_, { whatToTarget, query, language, page, includeAdult, region, primaryReleaseYear, year }, { dataSources }) => {
+          try {
+            return dataSources.moviesApi.getSearch(whatToTarget, query, language, page, includeAdult, region, primaryReleaseYear, year);
+          } catch (error) {
+            console.log(error);
+          }
+        },
+
+        /**
+         *  Resolver to get Search result for multi search
+         * @param {_} parent
+         * @param {query} arguments Required what you are looking for
+         * @param {language} arguments Optional -> en-Us as default
+         * @param {page} arguments Optional -> 1 as default
+         * @param {includeAdult} arguments Optional -> false as default
+         * @param {region} arguments Optional -> US as default
+         * @param {dataSources} fetch data from moviesAPI
+         * @returns return object containing result for search of multi
+         */
+         getSearchMulti: async (_, { query, language, page, includeAdult, region }, { dataSources }) => {
+           const whatToTarget = "multi";
+          try {
+            return dataSources.moviesApi.getSearch(whatToTarget, query, language, page, includeAdult, region);
           } catch (error) {
             console.log(error);
           }
