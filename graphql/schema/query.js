@@ -187,5 +187,12 @@ export const query = `
     """
     getSearchMulti(query: String!, language: String, page: String, includeAdult: Boolean, region: String): SearchMulti!
 
+
+    """ Query for Get an User
+        Option : \n
+            _id: ID! / id of the user to find
+    """
+    getUser(_id: ID!): User!
+
     }
 `;

@@ -2,6 +2,7 @@ import { gql } from "apollo-server-express";
 
 import {query} from './query.js';
 import {union} from './union.js';
+import {mutation} from './mutation.js';
 
 import {utilities} from './utilities.js';
 import {images} from './images.js';
@@ -17,6 +18,7 @@ import {tv} from './tv.js';
 import {trending} from './trending.js';
 import {collection} from './collection.js';
 import {search} from './search.js';
+import {users} from './users.js';
 
 
 export const schema = gql`
@@ -34,7 +36,8 @@ export const schema = gql`
     ${trending}
     ${collection}
     ${search}
+    ${users}
     ${union}
     ${query}
-
+    ${mutation}
 `;

@@ -1,3 +1,5 @@
+import { UserInputError, AuthenticationError  } from "apollo-server-express";
+
 export const resolvers = {
 
     // resolver for DisoverResult
@@ -131,9 +133,11 @@ export const resolvers = {
          * @param {id} arguments of the movie if not provided latest movie added will be fetch -> Optional
          * @param {language} arguments (en-US) -> Optional (en-US as default) language on this format
          * @param {dataSources} fetch data from moviesAPI
+         * @param {user} context Check if the user is LoggedIn
          * @returns if ID is provided a movie if no ID provided so the latest movie added to TMDB is return
          */
-        getMovie: async (_, { id, language }, { dataSources }) => {
+        getMovie: async (_, { id, language }, { dataSources, user }) => {
+            if(!user) throw new AuthenticationError('you must be logged in');
             const whatToTarget = "movie";
             try {
               return dataSources.moviesApi.getMovieOrTV(whatToTarget, id, language);
@@ -149,9 +153,11 @@ export const resolvers = {
          * @param {language} arguments (en-US) -> Optional (en-US as default) language on this format
          * @param {appendToResponse} arguments (null) -> Optional can append aggregate_credits,credits or images to the object
          * @param {dataSources} fetch data from moviesAPI
+         * @param {user} context Check if the user is LoggedIn
          * @returns if ID is provided a movie if no ID provided so the latest movie added to TMDB is return
          */
-        getSerie: async (_, { id, language, appendToResponse }, { dataSources }) => {
+        getSerie: async (_, { id, language, appendToResponse }, { dataSources, user }) => {
+          if(!user) throw new AuthenticationError('you must be logged in');
           const whatToTarget = "tv";
           try {
             return dataSources.moviesApi.getMovieOrTV(whatToTarget, id, language, appendToResponse);
@@ -168,9 +174,11 @@ export const resolvers = {
          * @param {sortBy} arguments (popularity.asc, release_date.desc/asc, revenue.desc/asc, primary_release_date.desc/asc) -> Optional (popularity.asc as default)
          * @param {primaryReleaseDateGTE} arguments (year as string) -> Optional (2018 as default)
          * @param {dataSources} fetch data from moviesAPI
+         * @param {user} context Check if the user is LoggedIn
          * @returns if media set return series discover list otherwise return movies list
          */
-        getDiscover: async (_, { media, language, sortBy, primaryReleaseDateGTE }, { dataSources }) => {
+        getDiscover: async (_, { media, language, sortBy, primaryReleaseDateGTE }, { dataSources, user }) => {
+          if(!user) throw new AuthenticationError('you must be logged in');
           const whatToTarget = "discover";
           try {
             return dataSources.moviesApi.getDiscover(whatToTarget, media, language, sortBy, primaryReleaseDateGTE);
@@ -189,10 +197,12 @@ export const resolvers = {
          * @param {region} arguments (US,FR,EN,...) -> Optional (US as default)
          * @param {id} arguments -> Required if use Similar or Recommendations otherwise its optional
          * @param {dataSources} fetch data from moviesAPI
+         * @param {user} context Check if the user is LoggedIn
          * @returns if whatToTarget set to similar or recommendations an id is Required and it will display a list of similar/recommendations movies
          *          otherwise it will return result for now_playing/upcoming/top_rated/popular movies
          */
-        getUpcomTopRatedPopuNowPlaying: async (_, { whatToTarget, language, page, region, id }, { dataSources }) => {
+        getUpcomTopRatedPopuNowPlaying: async (_, { whatToTarget, language, page, region, id }, { dataSources, user }) => {
+          if(!user) throw new AuthenticationError('you must be logged in');
           const media = "movie";
           try {
             return dataSources.moviesApi.getUpcomTopRatedPopuNowPlaying(media, whatToTarget, language, page, region, id);
@@ -211,10 +221,12 @@ export const resolvers = {
          * @param {region} arguments (US,FR,EN,...) -> Optional (US as default)
          * @param {id} arguments -> Required if use Similar or Recommendations otherwise its optional
          * @param {dataSources} fetch data from moviesAPI
+         * @param {user} context Check if the user is LoggedIn
          * @returns if whatToTarget set to similar or recommendations an id is Required and it will display a list of similar/recommendations movies
          *          otherwise it will return result for now_playing/upcoming/top_rated/popular movies
          */
-        getUpcomTopRatedPopuNowPlayingTV: async (_, { whatToTarget, language, page, id }, { dataSources }) => {
+        getUpcomTopRatedPopuNowPlayingTV: async (_, { whatToTarget, language, page, id }, { dataSources, user }) => {
+          if(!user) throw new AuthenticationError('you must be logged in');
           const media = "tv";
           const region = "";
           try {
@@ -230,9 +242,11 @@ export const resolvers = {
          * @param {id} arguments id of the movie -> Required
          * @param {language} arguments (en-US) -> Optional (en-US as default) language on this format
          * @param {dataSources} fetch data from moviesAPI
+         * @param {user} context Check if the user is LoggedIn
          * @returns return object containing list of cast and crew
          */
-        getCredits: async (_, { id, language }, { dataSources }) => {
+        getCredits: async (_, { id, language }, { dataSources, user }) => {
+          if(!user) throw new AuthenticationError('you must be logged in');
           try {
             return dataSources.moviesApi.getCredits(id, language);
           } catch (error) {
@@ -245,9 +259,11 @@ export const resolvers = {
          * @param {_} parent
          * @param {media} arguments (movie, tv) -> Optional (movie as default)
          * @param {dataSources} fetch data from moviesAPI
+         * @param {user} context Check if the user is LoggedIn
          * @returns return object containing list of certifications
          */
-        getCertifications: async (_, { media }, { dataSources }) => {
+        getCertifications: async (_, { media }, { dataSources, user }) => {
+          if(!user) throw new AuthenticationError('you must be logged in');
           const whatToTarget = "certification";
           const isNotCertif = false;
           try {
@@ -262,9 +278,11 @@ export const resolvers = {
          * @param {_} parent
          * @param {media} arguments (movie, tv) -> Optional (movie as default)
          * @param {dataSources} fetch data from moviesAPI
+         * @param {user} context Check if the user is LoggedIn
          * @returns return object containing list of genres
          */
-        getGenres: async (_, { media }, { dataSources }) => {
+        getGenres: async (_, { media }, { dataSources, user }) => {
+          if(!user) throw new AuthenticationError('you must be logged in');
           const whatToTarget = "genre";
           const isNotCertif = false;
           try {
@@ -279,9 +297,11 @@ export const resolvers = {
          * @param {_} parent
          * @param {id} arguments Required (id of the company)
          * @param {dataSources} fetch data from moviesAPI
+         * @param {user} context Check if the user is LoggedIn
          * @returns return object containing Company detail
          */
-        getCompany: async (_, { id }, { dataSources }) => {
+        getCompany: async (_, { id }, { dataSources, user }) => {
+          if(!user) throw new AuthenticationError('you must be logged in');
           const whatToTarget = "company"
           const media = "";
           const isNotCertif = true;
@@ -297,9 +317,11 @@ export const resolvers = {
          * @param {_} parent
          * @param {id} arguments Required (id of the Network)
          * @param {dataSources} fetch data from moviesAPI
+         * @param {user} context Check if the user is LoggedIn
          * @returns return object containing Network detail
          */
-        getNetwork: async (_, { id }, { dataSources }) => {
+        getNetwork: async (_, { id }, { dataSources, user }) => {
+          if(!user) throw new AuthenticationError('you must be logged in');
           const whatToTarget = "network"
           const media = "";
           const isNotCertif = true;
@@ -317,9 +339,11 @@ export const resolvers = {
          * @param {language} arguments Optional -> en-Us as default
          * @param {appendToResponse} arguments -> null as default
          * @param {dataSources} fetch data from moviesAPI
+         * @param {user} context Check if the user is LoggedIn
          * @returns return object containing People detail
          */
-        getPeople: async (_, { id, language, appendToResponse }, { dataSources }) => {
+        getPeople: async (_, { id, language, appendToResponse }, { dataSources, user }) => {
+          if(!user) throw new AuthenticationError('you must be logged in');
           try {
             return dataSources.moviesApi.getPeopleWithAppendToResponse(id, language, appendToResponse);
           } catch (error) {
@@ -335,9 +359,11 @@ export const resolvers = {
          * @param {language} arguments Optional -> en-Us as default
          * @param {appendToResponse} arguments -> null as default
          * @param {dataSources} fetch data from moviesAPI
+         * @param {user} context Check if the user is LoggedIn
          * @returns return object containing Season for a TV Show detail
          */
-        getSeason: async (_, { tvId, seasonNumber, language, appendToResponse }, { dataSources }) => {
+        getSeason: async (_, { tvId, seasonNumber, language, appendToResponse }, { dataSources, user }) => {
+          if(!user) throw new AuthenticationError('you must be logged in');
           try {
             return dataSources.moviesApi.getTVSeasons(tvId, seasonNumber, language, appendToResponse);
           } catch (error) {
@@ -354,9 +380,11 @@ export const resolvers = {
          * @param {language} arguments Optional -> en-Us as default
          * @param {appendToResponse} arguments -> null as default
          * @param {dataSources} fetch data from moviesAPI
+         * @param {user} context Check if the user is LoggedIn
          * @returns return object containing Episode for a TV Show detail
          */
-        getEpisode: async (_, { tvId, seasonNumber, episodeNumber, language, appendToResponse }, { dataSources }) => {
+        getEpisode: async (_, { tvId, seasonNumber, episodeNumber, language, appendToResponse }, { dataSources, user }) => {
+          if(!user) throw new AuthenticationError('you must be logged in');
           try {
             return dataSources.moviesApi.getTVEpisodes(tvId, seasonNumber, episodeNumber, language, appendToResponse);
           } catch (error) {
@@ -371,9 +399,11 @@ export const resolvers = {
          * @param {timeWindow} arguments Required (time window to fetch data betwee day,week) -> week as default
          * @param {language} arguments Optional -> en-Us as default
          * @param {dataSources} fetch data from moviesAPI
+         * @param {user} context Check if the user is LoggedIn
          * @returns return object containing TV/Movie/Person detail
          */
-        getTrending: async (_, { mediaType, timeWindow, language, page }, { dataSources }) => {
+        getTrending: async (_, { mediaType, timeWindow, language, page }, { dataSources, user }) => {
+          if(!user) throw new AuthenticationError('you must be logged in');
           try {
             return dataSources.moviesApi.getTrending(mediaType, timeWindow, language, page);
           } catch (error) {
@@ -387,9 +417,11 @@ export const resolvers = {
          * @param {collectionID} arguments Required ID of the collection
          * @param {language} arguments Optional -> en-Us as default
          * @param {dataSources} fetch data from moviesAPI
+         * @param {user} context Check if the user is LoggedIn
          * @returns return object containing Movie detail part of a collection
          */
-        getCollection: async (_, { collectionID, language }, { dataSources }) => {
+        getCollection: async (_, { collectionID, language }, { dataSources, user }) => {
+          if(!user) throw new AuthenticationError('you must be logged in');
           try {
             return dataSources.moviesApi.getCollection(collectionID, language);
           } catch (error) {
@@ -405,9 +437,11 @@ export const resolvers = {
          * @param {language} arguments Optional -> en-Us as default
          * @param {page} arguments Optional -> 1 as default
          * @param {dataSources} fetch data from moviesAPI
+         * @param {user} context Check if the user is LoggedIn
          * @returns return object containing result for search of company or collection
          */
-        getSearchCompOrColl: async (_, { whatToTarget, query, language, page }, { dataSources }) => {
+        getSearchCompOrColl: async (_, { whatToTarget, query, language, page }, { dataSources, user }) => {
+          if(!user) throw new AuthenticationError('you must be logged in');
           try {
             return dataSources.moviesApi.getSearch(whatToTarget, query, language, page);
           } catch (error) {
@@ -427,9 +461,11 @@ export const resolvers = {
          * @param {primaryReleaseYear} arguments Optional -> null as default (work for movie and tv)
          * @param {year} arguments Optional -> null as default (for movie)
          * @param {dataSources} fetch data from moviesAPI
+         * @param {user} context Check if the user is LoggedIn
          * @returns return object containing result for search of movie, tv or person
          */
-        getSearchMoviesTVOrPeople: async (_, { whatToTarget, query, language, page, includeAdult, region, primaryReleaseYear, year }, { dataSources }) => {
+        getSearchMoviesTVOrPeople: async (_, { whatToTarget, query, language, page, includeAdult, region, primaryReleaseYear, year }, { dataSources, user }) => {
+          if(!user) throw new AuthenticationError('you must be logged in');
           try {
             return dataSources.moviesApi.getSearch(whatToTarget, query, language, page, includeAdult, region, primaryReleaseYear, year);
           } catch (error) {
@@ -446,9 +482,11 @@ export const resolvers = {
          * @param {includeAdult} arguments Optional -> false as default
          * @param {region} arguments Optional -> US as default
          * @param {dataSources} fetch data from moviesAPI
+         * @param {user} context Check if the user is LoggedIn
          * @returns return object containing result for search of multi
          */
-         getSearchMulti: async (_, { query, language, page, includeAdult, region }, { dataSources }) => {
+         getSearchMulti: async (_, { query, language, page, includeAdult, region }, { dataSources, user }) => {
+          if(!user) throw new AuthenticationError('you must be logged in');
            const whatToTarget = "multi";
           try {
             return dataSources.moviesApi.getSearch(whatToTarget, query, language, page, includeAdult, region);
@@ -456,5 +494,43 @@ export const resolvers = {
             console.log(error);
           }
         },
+
+        /**
+         *  Resolver to get an User
+         * @param {_} parent
+         * @param {_id} arguments Required _id of the user you are looking for
+         * @param {dataSources} fetch data from users
+         * @param {user} context Check if the user is LoggedIn
+         * @returns return object user
+         */
+        getUser: async (_, { _id }, { dataSources, user }) => {
+          if(!user) throw new AuthenticationError('you must be logged in');
+          try {
+            return dataSources.users.getUser(_id);
+          } catch (error) {
+            console.log(error);
+          }
+        },
+    },
+
+    Mutation: {
+      login: async (_, { email, password }, { dataSources }) => {
+        const user = await dataSources.users.findOneByEmailAndPassword(email);
+        const userInputError = {}
+        if(user) {
+          if(user.password === password) {
+            user.token = Buffer.from(email).toString('base64');
+            return user;
+          } else if (user.password !== password) {
+            userInputError.wrongPassword = 'Wrong Password!!';
+          }
+        } else if(!user) {
+          userInputError.userNotExist = 'The user does not exist';
+        }
+
+        if (Object.keys(userInputError).length > 0) {
+          throw new UserInputError('Failed to get events due to validation errors', { userInputError })
+        }
+      }
     }
 }
