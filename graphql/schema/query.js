@@ -62,35 +62,39 @@ export const query = `
         getUpcomTopRatedPopuNowPlayingTV(whatToTarget: String, language: String, page: String, id: ID): TVResult!
 
         """ Query for Get Credits for a Movie """
-        getCredits(id: ID!, language: String): MediaCredits
+        getCredits(id: ID!, language: String): MovieCredits
 
         """ Query for Get Certifications for Movies and TV
         Option : \n
             media: String / movie (default) Optional \n
                 Option can be   movie \n
                                 tv \n
+            language: String / en-US (default) Optional \n
         """
-        getCertifications(media: String): Certifications!
+        getCertifications(media: String, language: String): Certifications!
 
         """ Query for Get Genres for Movies and TV
         Option : \n
             media: String / movie (default) Optional \n
                 Option can be   movie \n
                                 tv \n
+            language: String / en-US (default) Optional \n
         """
-        getGenres(media: String): Genres!
+        getGenres(media: String, language: String): Genres!
 
         """ Query for Get a Company
         Option : \n
             id: ID / id of a company !! Required !! \n
+            language: String / en-US (default) Optional \n
         """
-        getCompany(id: String): Company!
+        getCompany(id: String, language: String): Company!
 
         """ Query for Get Network
             Option : \n
                 id: ID / id of network !! Required !! \n
+                language: String / en-US (default) Optional \n
         """
-        getNetwork(id: ID!): Network!
+        getNetwork(id: ID!, language: String): Network!
 
         """ Query for Get a People
             Option : \n

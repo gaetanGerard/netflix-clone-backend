@@ -1,4 +1,4 @@
-import { ApolloServer, AuthenticationError } from 'apollo-server-express';
+import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import express from 'express';
 import http from 'http';
@@ -29,7 +29,6 @@ const context = async ({ req }) => {
   const email = Buffer.from(auth, 'base64').toString('ascii');
   if(!isEmail.validate(email)) return { user: null };
   const user = await client.db().collection('users').findOne({email: email});
-  // if (!user) throw new AuthenticationError('you must be logged in');
   return { user };
 }
 

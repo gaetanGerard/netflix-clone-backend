@@ -153,6 +153,13 @@ export const credits = `
         crew: [CrewUnion!]!
     }
 
+    """ Schema for return result of credits for a movie """
+    type MovieCredits {
+        id: ID
+        cast: [Cast!]!
+        crew: [Crew!]!
+    }
+
     """ Schema for Aggregate TV Cast """
     type AggregateTVCast {
         adult: Boolean!

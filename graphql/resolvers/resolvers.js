@@ -267,12 +267,12 @@ export const resolvers = {
          * @param {user} context Check if the user is LoggedIn
          * @returns return object containing list of certifications
          */
-        getCertifications: async (_, { media }, { dataSources, user }) => {
+        getCertifications: async (_, { media, language }, { dataSources, user }) => {
           if(!user) throw new AuthenticationError('you must be logged in');
           const whatToTarget = "certification";
           const isNotCertif = false;
           try {
-            return dataSources.moviesApi.getCertifOrGenresOrCompany(isNotCertif, whatToTarget, media);
+            return dataSources.moviesApi.getCertifOrGenresOrCompany(isNotCertif, whatToTarget, media, language);
           } catch (error) {
             console.log(error);
           }
@@ -286,12 +286,12 @@ export const resolvers = {
          * @param {user} context Check if the user is LoggedIn
          * @returns return object containing list of genres
          */
-        getGenres: async (_, { media }, { dataSources, user }) => {
+        getGenres: async (_, { media, language }, { dataSources, user }) => {
           if(!user) throw new AuthenticationError('you must be logged in');
           const whatToTarget = "genre";
           const isNotCertif = false;
           try {
-            return dataSources.moviesApi.getCertifOrGenresOrCompany(isNotCertif, whatToTarget, media);
+            return dataSources.moviesApi.getCertifOrGenresOrCompany(isNotCertif, whatToTarget, media, language);
           } catch (error) {
             console.log(error);
           }
@@ -305,13 +305,13 @@ export const resolvers = {
          * @param {user} context Check if the user is LoggedIn
          * @returns return object containing Company detail
          */
-        getCompany: async (_, { id }, { dataSources, user }) => {
+        getCompany: async (_, { id, language }, { dataSources, user }) => {
           if(!user) throw new AuthenticationError('you must be logged in');
           const whatToTarget = "company"
           const media = "";
           const isNotCertif = true;
           try {
-            return dataSources.moviesApi.getCertifOrGenresOrCompany(isNotCertif, whatToTarget, media, id);
+            return dataSources.moviesApi.getCertifOrGenresOrCompany(isNotCertif, whatToTarget, media, id, language);
           } catch (error) {
             console.log(error);
           }
@@ -325,13 +325,13 @@ export const resolvers = {
          * @param {user} context Check if the user is LoggedIn
          * @returns return object containing Network detail
          */
-        getNetwork: async (_, { id }, { dataSources, user }) => {
+        getNetwork: async (_, { id, language }, { dataSources, user }) => {
           if(!user) throw new AuthenticationError('you must be logged in');
           const whatToTarget = "network"
           const media = "";
           const isNotCertif = true;
           try {
-            return dataSources.moviesApi.getCertifOrGenresOrCompany(isNotCertif, whatToTarget, media, id);
+            return dataSources.moviesApi.getCertifOrGenresOrCompany(isNotCertif, whatToTarget, media, id, language);
           } catch (error) {
             console.log(error);
           }
