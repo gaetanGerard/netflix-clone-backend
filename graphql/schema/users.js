@@ -6,5 +6,7 @@ export const users = `
         email: String!
         password: String!
         token: String
+        created_at: String
+        updated_at: String
     }
 `;

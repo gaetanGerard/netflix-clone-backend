@@ -1,6 +1,5 @@
 import { MongoDataSource } from 'apollo-datasource-mongodb';
 import isEmail from 'isemail';
-import bcrypt from 'bcrypt';
 
 export class Users extends MongoDataSource {
     /**

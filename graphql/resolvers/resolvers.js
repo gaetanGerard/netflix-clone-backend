@@ -2,6 +2,9 @@ import { UserInputError, AuthenticationError  } from "apollo-server-express";
 import isEmail from 'isemail';
 import bcrypt from 'bcrypt';
 
+const dateOptions = { timeZone: 'Europe/Brussels' };
+const dateNow = new Date().toLocaleString('fr-FR', dateOptions);
+
 export const resolvers = {
 
     // resolver for DisoverResult
@@ -562,7 +565,9 @@ export const resolvers = {
               const data = {
                 username,
                 email,
-                password
+                password,
+                created_at: dateNow,
+                updated_at: dateNow
               };
               const salt = await bcrypt.genSalt(10);
               data.password = await bcrypt.hash(data.password, salt);
