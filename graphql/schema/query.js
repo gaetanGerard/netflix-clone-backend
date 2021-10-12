@@ -192,7 +192,7 @@ export const query = `
         Option : \n
             _id: ID! / id of the user to find
     """
-    getUser(_id: ID!): User!
+    getUser: User!
 
     }
 `;

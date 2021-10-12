@@ -1,4 +1,6 @@
 import { UserInputError, AuthenticationError  } from "apollo-server-express";
+import isEmail from 'isemail';
+import bcrypt from 'bcrypt';
 
 export const resolvers = {
 
@@ -496,29 +498,35 @@ export const resolvers = {
         },
 
         /**
-         *  Resolver to get an User
+         *  Resolver to get an User from the context
          * @param {_} parent
-         * @param {_id} arguments Required _id of the user you are looking for
          * @param {dataSources} fetch data from users
          * @param {user} context Check if the user is LoggedIn
          * @returns return object user
          */
-        getUser: async (_, { _id }, { dataSources, user }) => {
+        getUser: async (_, __, { dataSources, user }) => {
           if(!user) throw new AuthenticationError('you must be logged in');
-          try {
-            return dataSources.users.getUser(_id);
-          } catch (error) {
-            console.log(error);
-          }
+          user.token = Buffer.from(user.email).toString('base64');
+          return user;
         },
     },
 
     Mutation: {
+      /**
+       *  Resolver to logged in an user with its email and password
+       * @param {_} parent
+       * @param {email} Required email of the user
+       * @param {password} Required password of the user
+       * @param {dataSources} fetch data from users
+       * @param {user} context Check if the user is LoggedIn
+       * @returns return object user
+      */
       login: async (_, { email, password }, { dataSources }) => {
         const user = await dataSources.users.findOneByEmailAndPassword(email);
         const userInputError = {}
         if(user) {
-          if(user.password === password) {
+          const passMatch = await bcrypt.compare(password, user.password);
+          if(passMatch) {
             user.token = Buffer.from(email).toString('base64');
             return user;
           } else if (user.password !== password) {
@@ -526,6 +534,47 @@ export const resolvers = {
           }
         } else if(!user) {
           userInputError.userNotExist = 'The user does not exist';
+        }
+
+        if (Object.keys(userInputError).length > 0) {
+          throw new UserInputError('Failed to get events due to validation errors', { userInputError })
+        }
+      },
+
+       /**
+       *  Resolver to register a new user with its email and password and username
+       * @param {_} parent
+       * @param {email} Required email of the user
+       * @param {password} Required password of the user
+       * @param {username} Required username of the user
+       * @param {dataSources} fetch data from users
+       * @param {user} context Check if the user is LoggedIn
+       * @returns return object user
+      */
+      register: async (_, { username, email, password }, { dataSources }) => {
+        const userInputError = {};
+        const existingUser = await dataSources.users.findOneByEmailAndPassword(email);
+        if(!isEmail.validate(email)) {
+          userInputError.wrongEmailFormat = 'This is not an email address';
+        } else {
+          if(!existingUser) {
+            if (password.length > 8) {
+              const data = {
+                username,
+                email,
+                password
+              };
+              const salt = await bcrypt.genSalt(10);
+              data.password = await bcrypt.hash(data.password, salt);
+              const user =  await dataSources.users.insertNewUser(data);
+              user.token = Buffer.from(email).toString('base64');
+              return user;
+            } else {
+              userInputError.passwordLengthError = 'Password must have minimum 8 characters';
+            }
+          } else {
+            userInputError.userAlreadyExist = 'The email is already use';
+          }
         }
 
         if (Object.keys(userInputError).length > 0) {
