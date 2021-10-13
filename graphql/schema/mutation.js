@@ -18,5 +18,8 @@ export const mutation = `
             Option: UserInput / Object !! Optional option !! \n
         """
         updateUser(userDetail: UserInput!): User!
+
+        """ Remove user Mutation : \n """
+        removeUser: Message!
     }
 `;

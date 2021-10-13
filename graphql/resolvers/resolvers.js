@@ -601,6 +601,19 @@ export const resolvers = {
         const myUsers = await dataSources.users.updateUser(userDetail);
         myUsers.token = Buffer.from(myUsers.email).toString('base64');
         return myUsers;
+      },
+
+      /**
+       *  Resolver to remove an user
+       * @param {_} parent
+       * @param {dataSources} fetch data from users
+       * @param {user} context Check if the user is LoggedIn
+       * @returns return object user
+      */
+      removeUser: async (_, __, { dataSources, user }) => {
+        if(!user) throw new AuthenticationError('you must be logged in');
+        const removeUsers = await dataSources.users.removeUser();
+        return removeUsers;
       }
     }
 }

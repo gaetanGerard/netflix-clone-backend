@@ -83,10 +83,17 @@ export const utilities = `
         character: String!
         episode_count: Int!
     }
+
     """ Schema for Job """
     type Job {
         credit_id: String!
         job: String!
         episode_count: Int!
+    }
+
+    """ Schema for a Message """
+    type Message {
+        msg: String!
+        type: String!
     }
 `;
