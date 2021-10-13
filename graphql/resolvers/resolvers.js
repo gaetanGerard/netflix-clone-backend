@@ -142,6 +142,7 @@ export const resolvers = {
          * @returns if ID is provided a movie if no ID provided so the latest movie added to TMDB is return
          */
         getMovie: async (_, { id, language }, { dataSources, user }) => {
+          console.log(id);
             if(!user) throw new AuthenticationError('you must be logged in');
             const whatToTarget = "movie";
             try {
