@@ -35,5 +35,17 @@ export class Users extends MongoDataSource {
         return user;
     }
 
+    /**
+     *  Function to update an User
+     * @param {data} arguments Required object to store in DB
+     * @returns return object User
+    */
+    async updateUser(data) {
+        const userId = this.context && this.context.user ? this.context.user._id : null;
+        const newUser = await this.collection.updateOne({_id: userId}, { $set: data });
+        const user = await this.collection.findOne(userId);
+        return user;
+    }
+
 
 }

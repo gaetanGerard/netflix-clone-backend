@@ -1,17 +1,22 @@
 export const mutation = `
     """ Mutation """
     type Mutation {
-        """ Login Mutation : \n
+        """ Login user Mutation : \n
             Option: email / String !! Required !! \n
                     password / String !! Required !!
         """
-        login(email: String!, password: String!): User!
+        loginUser(email: String!, password: String!): User!
 
-        """ Register Mutation : \n
+        """ Register user Mutation : \n
             Option: username / String !! Required !! \n
                     email / String !! Required !! \n
                     password / String !! Required !!
         """
-        register(username: String!, email: String!, password: String!): User!
+        registerUser(username: String!, email: String!, password: String!): User!
+
+        """ Update user Mutation : \n
+            Option: UserInput / Object !! Optional option !! \n
+        """
+        updateUser(userDetail: UserInput!): User!
     }
 `;

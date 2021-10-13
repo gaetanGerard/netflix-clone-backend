@@ -524,7 +524,7 @@ export const resolvers = {
        * @param {user} context Check if the user is LoggedIn
        * @returns return object user
       */
-      login: async (_, { email, password }, { dataSources }) => {
+      loginUser: async (_, { email, password }, { dataSources }) => {
         const user = await dataSources.users.findOneByEmailAndPassword(email);
         const userInputError = {}
         if(user) {
@@ -554,7 +554,7 @@ export const resolvers = {
        * @param {user} context Check if the user is LoggedIn
        * @returns return object user
       */
-      register: async (_, { username, email, password }, { dataSources }) => {
+      registerUser: async (_, { username, email, password }, { dataSources }) => {
         const userInputError = {};
         const existingUser = await dataSources.users.findOneByEmailAndPassword(email);
         if(!isEmail.validate(email)) {
@@ -585,6 +585,22 @@ export const resolvers = {
         if (Object.keys(userInputError).length > 0) {
           throw new UserInputError('Failed to get events due to validation errors', { userInputError })
         }
+      },
+
+      /**
+       *  Resolver to update an user
+       * @param {_} parent
+       * @param {userDetail} Required Object containing the field to update
+       * @param {dataSources} fetch data from users
+       * @param {user} context Check if the user is LoggedIn
+       * @returns return object user
+      */
+      updateUser: async (_, { userDetail }, { dataSources, user }) => {
+        if(!user) throw new AuthenticationError('you must be logged in');
+        userDetail.updated_at = dateNow;
+        const myUsers = await dataSources.users.updateUser(userDetail);
+        myUsers.token = Buffer.from(myUsers.email).toString('base64');
+        return myUsers;
       }
     }
 }

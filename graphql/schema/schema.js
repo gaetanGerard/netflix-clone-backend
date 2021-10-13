@@ -3,6 +3,7 @@ import { gql } from "apollo-server-express";
 import {query} from './query.js';
 import {union} from './union.js';
 import {mutation} from './mutation.js';
+import {input} from './input.js';
 
 import {utilities} from './utilities.js';
 import {images} from './images.js';
@@ -40,4 +41,5 @@ export const schema = gql`
     ${union}
     ${query}
     ${mutation}
+    ${input}
 `;
