@@ -1,7 +1,8 @@
 import {MoviesAPI} from '../moviesAPI.js';
 import {
     mockCompany,
-    mockNetwork
+    mockNetwork,
+    mockTrendingAll
 } from './mock/utilities.mock.js';
 
 const mocks = {
@@ -42,6 +43,22 @@ describe('[MoviesAPI.getNetwork]', () => {
         const res = await ds.getCertifOrGenresOrCompany(isNotCertif, whatToTarget, media, id, language);
 
         expect(res).toEqual([mockNetwork]);
+        expect(mocks.get).toBeCalledWith(expect.anything());
+    })
+})
+
+describe('[MoviesAPI.getTrending]', () => {
+    it('Properly return an object containing a Trending', async () => {
+        // If API response contain a Trending result,
+        // res should be an object containing the Trending result
+        mocks.get.mockReturnValueOnce([mockTrendingAll]);
+        const language = "en-US";
+        const mediaType = "all"
+        const timeWindow = "week";
+        const page = "1";
+        const res = await ds.getTrending(mediaType, timeWindow, language, page);
+
+        expect(res).toEqual([mockTrendingAll]);
         expect(mocks.get).toBeCalledWith(expect.anything());
     })
 })

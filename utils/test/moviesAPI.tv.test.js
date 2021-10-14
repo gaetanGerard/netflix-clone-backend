@@ -4,7 +4,11 @@ import {
     mockSerieIdRespWithAppendToResponse,
     mockDiscoverSerie,
     mockCertificationsSerie,
-    mockGenreSerie
+    mockGenreSerie,
+    mocksSeasonSerieWhitoutAppendToResponse,
+    mocksSeasonSerieWithAppendToResponse,
+    mocksEpisodeSerieWhitoutAppendToResponse,
+    mocksEpisodeSerieWithAppendToResponse
 } from './mock/series.mock.js';
 
 const mocks = {
@@ -119,6 +123,68 @@ describe('[MoviesAPI.getGenresSeries]', () => {
         const isNotCertif = false;
         const res = await ds.getCertifOrGenresOrCompany(isNotCertif, whatToTarget, media, language);
         expect(res).toEqual([mockGenreSerie]);
+        expect(mocks.get).toBeCalledWith(expect.anything());
+    })
+})
+
+describe('[MoviesAPI.getSeasonWhitoutAppendToResponse]', () => {
+    it('Properly return an object containing a Season for a Serie whitout append_to_response data', async () => {
+        // If API response contain a Season for Serie,
+        // res should be an object containing the Season detail
+        mocks.get.mockReturnValueOnce([mocksSeasonSerieWhitoutAppendToResponse]);
+        const tvId = "1399";
+        const seasonNumber = "1";
+        const language = "en-US";
+        const appendToResponse = null;
+        const res = await ds.getTVSeasons(tvId, seasonNumber, language, appendToResponse);
+        expect(res).toEqual([mocksSeasonSerieWhitoutAppendToResponse]);
+        expect(mocks.get).toBeCalledWith(expect.anything());
+    })
+})
+
+describe('[MoviesAPI.getSeasonWithAppendToResponse]', () => {
+    it('Properly return an object containing a Season for a Serie with append_to_response data', async () => {
+        // If API response contain a Season for Serie,
+        // res should be an object containing the Season detail
+        mocks.get.mockReturnValueOnce([mocksSeasonSerieWithAppendToResponse]);
+        const tvId = "1399";
+        const seasonNumber = "1";
+        const language = "en-US";
+        const appendToResponse = "aggregate_credits,credits,images";
+        const res = await ds.getTVSeasons(tvId, seasonNumber, language, appendToResponse);
+        expect(res).toEqual([mocksSeasonSerieWithAppendToResponse]);
+        expect(mocks.get).toBeCalledWith(expect.anything());
+    })
+})
+
+describe('[MoviesAPI.getEpisodeWhitoutAppendToResponse]', () => {
+    it('Properly return an object containing an Episode of a Season for a Serie whitout append_to_response data', async () => {
+        // If API response contain an Episode of a Season for Serie,
+        // res should be an object containing the Season detail
+        mocks.get.mockReturnValueOnce([mocksSeasonSerieWhitoutAppendToResponse]);
+        const tvId = "1399";
+        const seasonNumber = "1";
+        const episodeNumber = "1";
+        const language = "en-US";
+        const appendToResponse = null;
+        const res = await ds.getTVEpisodes(tvId, seasonNumber, episodeNumber, language, appendToResponse);
+        expect(res).toEqual([mocksSeasonSerieWhitoutAppendToResponse]);
+        expect(mocks.get).toBeCalledWith(expect.anything());
+    })
+})
+
+describe('[MoviesAPI.getEpisodeWithAppendToResponse]', () => {
+    it('Properly return an object containing an Episode of a Season for a Serie with append_to_response data', async () => {
+        // If API response contain an Episode of a Season for Serie,
+        // res should be an object containing the Season detail
+        mocks.get.mockReturnValueOnce([mocksSeasonSerieWithAppendToResponse]);
+        const tvId = "1399";
+        const seasonNumber = "1";
+        const episodeNumber = "1";
+        const language = "en-US";
+        const appendToResponse = "credits,images";
+        const res = await ds.getTVEpisodes(tvId, seasonNumber, episodeNumber, language, appendToResponse);
+        expect(res).toEqual([mocksSeasonSerieWithAppendToResponse]);
         expect(mocks.get).toBeCalledWith(expect.anything());
     })
 })
