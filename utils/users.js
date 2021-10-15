@@ -21,7 +21,6 @@ export class Users extends MongoDataSource {
         const email = this.context && this.context.user ? this.context.user.email : emailArgs;
         if (!email && !isEmail.validate(email)) return null;
         const users = await this.findByFields({ email });
-        console.log(email);
         return users && users[0] ? users[0] : null;
     }
 
