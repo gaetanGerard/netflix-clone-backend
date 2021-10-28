@@ -3,9 +3,9 @@ export const collection = `
     type Collection {
         id: ID!
         name: String!
-        overview: String!
+        overview: String
         poster_path: String
         backdrop_path: String
-        parts: [MoviesDiscover!]!
+        parts: [MoviesDiscover!]
     }
 `;

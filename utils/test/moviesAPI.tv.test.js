@@ -6,9 +6,7 @@ import {
     mockCertificationsSerie,
     mockGenreSerie,
     mocksSeasonSerieWhitoutAppendToResponse,
-    mocksSeasonSerieWithAppendToResponse,
-    mocksEpisodeSerieWhitoutAppendToResponse,
-    mocksEpisodeSerieWithAppendToResponse
+    mocksSeasonSerieWithAppendToResponse
 } from './mock/series.mock.js';
 
 const mocks = {

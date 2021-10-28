@@ -29,7 +29,7 @@
     "jest": "^27.2.5"
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest --watch",
     "start": "nodemon server.js"
   },
   "repository": {

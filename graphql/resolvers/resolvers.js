@@ -142,7 +142,6 @@ export const resolvers = {
          * @returns if ID is provided a movie if no ID provided so the latest movie added to TMDB is return
          */
         getMovie: async (_, { id, language }, { dataSources, user }) => {
-          console.log(id);
             if(!user) throw new AuthenticationError('you must be logged in');
             const whatToTarget = "movie";
             try {
@@ -513,6 +512,16 @@ export const resolvers = {
           user.token = Buffer.from(user.email).toString('base64');
           return user;
         },
+    },
+
+    Movie: {
+      belongs_to_collection: (par, __, { dataSources, user }) => {
+        try {
+          return dataSources.moviesApi.getCollection(par.belongs_to_collection.id);
+        } catch (error) {
+          console.log(error);
+        }
+      }
     },
 
     Mutation: {
