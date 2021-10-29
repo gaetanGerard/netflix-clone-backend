@@ -19,4 +19,4 @@ install_packages:
 test_backend:
   stage: test
   script:
-    - yarn run test
+    - yarn test
