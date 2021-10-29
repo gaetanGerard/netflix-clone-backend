@@ -34,7 +34,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gaetanGerard/netflix-clone-backend.git"
+    "url": "https://github.com/gaetanGerard/netflix-clone-backend.git"
   },
   "author": "",
   "license": "ISC",
