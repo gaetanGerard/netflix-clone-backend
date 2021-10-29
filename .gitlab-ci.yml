@@ -1,0 +1,16 @@
+image: node:14
+
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - install
+
+install_packages:
+  stage: install
+  script:
+    - yarn install
+  artifacts:
+    paths:
+      - node_modules/
