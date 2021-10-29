@@ -37,6 +37,6 @@ build_image:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
     - docker build . -t gge2705/netflix-clone-backend
     - docker push gge2705/netflix-clone-backend
-    - docker registry.gitlab.com -u "$CI_LOCAL_REGISTRY_USER" - p "$CI_LOCAL_REGISTRY_PASSWORD"
+    - docker registry.gitlab.com
     - docker build -t "registry.gitlab.com/$CI_LOCAL_REGISTRY_USER/netflix-clone-backend" .
     - docker push "registry.gitlab.com/$CI_LOCAL_REGISTRY_USER/netflix-clone-backend"
