@@ -29,8 +29,8 @@ build_image:
     - docker:19.03.13-dind
   variables:
     DOCKER_TLS_CERTDIR: ""
-  before_script:
-    - echo "$DOCKER_REGISTRY_PASS" | docker login --username $DOCKER_REGISTRY_USER --password-stdin
   script:
+    - $CI_REGISTRY_USER
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
     - docker build . -t gge2705/netflix-clone-backend
     - docker push gge2705/netflix-clone-backend
