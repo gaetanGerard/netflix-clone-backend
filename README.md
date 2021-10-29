@@ -1,4 +1,4 @@
-[![pipeline status](https://gitlab.com/gaetanGerard/netflix-clone-backend/badges/main/pipeline.svg)](https://gitlab.com/gaetanGerard/netflix-clone-backend/-/commits/main)
+[![pipeline status](https://gitlab.com/gaetanGerard/netflix-clone-backend/badges/main/pipeline.svg)](https://gitlab.com/gaetanGerard/netflix-clone-backend/-/commits/main)[![coverage report](https://gitlab.com/gaetanGerard/netflix-clone-backend/badges/main/coverage.svg)](https://gitlab.com/gaetanGerard/netflix-clone-backend/-/commits/main)
 # netflix-clone-backend
 
 ## Technos
