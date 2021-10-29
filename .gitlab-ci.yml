@@ -35,6 +35,5 @@ build_image:
   before_script:
     - echo "$DOCKER_REGISTRY_PASS" | docker login $DOCKER_REGISTRY --username $DOCKER_REGISTRY_USER --password-stdin
   script:
-    - docker login -u "gge275" -p "DOCKER_PASSWORD" "hub.docker.com"
     - docker build . -t gge2705/netflix-clone-backend
     - docker push gge2705/netflix-clone-backend
