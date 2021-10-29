@@ -24,13 +24,16 @@ test_backend:
 
 build_image:
   stage: image
-  image: docker:19.03.13
+  image: docker:stable
   services:
-    - docker:19.03.13-dind
+   - name: docker:dind
+     alias: dockerdaemon
   variables:
+    DOCKER_HOST: tcp://dockerdaemon:2375/
+    DOCKER_DRIVER: overlay2
     DOCKER_TLS_CERTDIR: ""
   script:
     - $CI_REGISTRY_USER
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
-    - docker build . -t gge2705/netflix-clone-backend
+    - docker build -t gge2705/netflix-clone-backend
     - docker push gge2705/netflix-clone-backend
