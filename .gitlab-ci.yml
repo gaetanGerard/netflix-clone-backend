@@ -7,6 +7,7 @@ cache:
 stages:
   - install
   - test
+  - image
 
 install_packages:
   stage: install
@@ -20,3 +21,9 @@ test_backend:
   stage: test
   script:
     - yarn test
+
+build_image:
+  stage: image
+  script:
+    - docker build . -t gge2705/netflix-clone-backend
+    - docker push gge2705/netflix-clone-backend
