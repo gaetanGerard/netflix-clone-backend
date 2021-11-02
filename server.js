@@ -40,7 +40,7 @@ async function startApolloServer(typeDefs, resolvers) {
     resolvers,
     dataSources,
     context,
-    introspection: false,
+    introspection: process.env.NODE_ENV !== 'production',
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
   await server.start();
