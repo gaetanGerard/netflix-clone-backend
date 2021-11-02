@@ -40,6 +40,7 @@ build_image:
     - docker push gge2705/netflix-clone-backend
 
 deploy_container:
+  image: alpine
   stage: deploy
   before_script:
     - apk add openssh-client
@@ -48,6 +49,4 @@ deploy_container:
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
   script:
-    - ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD"
-    - ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker pull $CI_REGISTRY_USER/netflix-clone-backend"
-    - ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker run -d -p 4000:4000 --name netflix-clone-backend $CI_REGISTRY_USER/netflix-clone-backend"
+    - ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "cd ~; touch test.txt"
