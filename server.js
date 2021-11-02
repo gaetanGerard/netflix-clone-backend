@@ -40,7 +40,7 @@ async function startApolloServer(typeDefs, resolvers) {
     resolvers,
     dataSources,
     context,
-    introspection: true,
+    introspection: false,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
   await server.start();
