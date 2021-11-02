@@ -8,6 +8,7 @@ stages:
   - install
   - test
   - image
+  - deploy
 
 install_packages:
   stage: install
@@ -37,3 +38,12 @@ build_image:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
     - docker build . -t gge2705/netflix-clone-backend
     - docker push gge2705/netflix-clone-backend
+
+deploy_container:
+  stage: deploy
+  script:
+    chmod og= $ID_RSA
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker login -u gge2705 -p $CI_REGISTRY_PASSWORD"
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker pull gge2705/netflix-clone-backend"
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker container rm -f netflix-clone-backend || true"
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker run -d -p 4000:4000 --name netflix-clone-backend gge2705/netflix-clone-backend"
