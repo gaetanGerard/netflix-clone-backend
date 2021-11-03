@@ -39,21 +39,21 @@ build_image:
     - docker build . -t gge2705/netflix-clone-backend
     - docker push gge2705/netflix-clone-backend
 
-# deploy_container:
-#   stage: deploy
-#   image: docker:stable
-#   services:
-#    - name: docker:dind
-#      alias: dockerdaemon
-#   variables:
-#     DOCKER_HOST: tcp://dockerdaemon:2375/
-#     DOCKER_DRIVER: overlay2
-#     DOCKER_TLS_CERTDIR: ""
-#   before_script:
-#     - apk add openssh-client
-#     - eval $(ssh-agent -s)
-#     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-#     - mkdir -p ~/.ssh
-#     - chmod 700 ~/.ssh
-#   script:
-#     - ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "~/deploy_gitlab.sh "
+deploy_container:
+  stage: deploy
+  image: docker:stable
+  services:
+   - name: docker:dind
+     alias: dockerdaemon
+  variables:
+    DOCKER_HOST: tcp://dockerdaemon:2375/
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+  before_script:
+    - apk add openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+  script:
+    - ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "~/deploy_gitlab.sh "
