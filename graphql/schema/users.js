@@ -14,5 +14,7 @@ export const users = `
         description: String
         created_at: String
         updated_at: String
+        rememberMe: Boolean
+        specialOffers: Boolean
     }
 `;

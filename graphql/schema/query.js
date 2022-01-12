@@ -198,5 +198,11 @@ export const query = `
     """
     getUser: User!
 
+    """ Login user Query : \n
+    Option: email / String !! Required !! \n
+            password / String !! Required !!
+    """
+    loginUser(email: String!, password: String!): User!
+
     }
 `;

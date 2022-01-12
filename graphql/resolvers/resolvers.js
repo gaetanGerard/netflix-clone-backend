@@ -508,23 +508,11 @@ export const resolvers = {
          * @returns return object user
          */
         getUser: async (_, __, { dataSources, user }) => {
-          if(!user) throw new AuthenticationError('you must be logged in');
+          // if(!user) throw new AuthenticationError('you must be logged in');
           user.token = Buffer.from(user.email).toString('base64');
           return user;
         },
-    },
 
-    Movie: {
-      belongs_to_collection: (par, __, { dataSources, user }) => {
-        try {
-          return dataSources.moviesApi.getCollection(par.belongs_to_collection.id);
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    },
-
-    Mutation: {
       /**
        *  Resolver to logged in an user with its email and password
        * @param {_} parent
@@ -553,7 +541,19 @@ export const resolvers = {
           throw new UserInputError('Failed to get events due to validation errors', { userInputError })
         }
       },
+    },
 
+    Movie: {
+      belongs_to_collection: (par, __, { dataSources, user }) => {
+        try {
+          return dataSources.moviesApi.getCollection(par.belongs_to_collection.id);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    },
+
+    Mutation: {
        /**
        *  Resolver to register a new user with its email and password and username
        * @param {_} parent
