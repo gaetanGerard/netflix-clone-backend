@@ -11,8 +11,10 @@
 ## How to start The server ?
 
 1) Create a .env file
-
+    
     The env file required those Variable for the server to work
+    
+    The DB is a free tier cluster from MongoDB
 
    1.1) MONGODB_USER=${the user for connect to the DB}
 
