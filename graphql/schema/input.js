@@ -1,7 +1,6 @@
 export const input = `
     """ User Input for update profile """
     input UserInput {
-        username: String
         firstname: String
         lastname: String
         date_of_birth: String
@@ -9,5 +8,17 @@ export const input = `
         profile_pic: String
         description: String
         email: String
+        profile: [ProfileInput]
+        password: String
+        rememberMe: Boolean
+        specialOffers: Boolean
+        subscriptionPlan: String
+    }
+
+    input ProfileInput {
+        p_name: String
+        kid: Boolean
+        language: String
+        profile_pic: String
     }
 `;

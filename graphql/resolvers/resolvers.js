@@ -555,11 +555,10 @@ export const resolvers = {
 
     Mutation: {
        /**
-       *  Resolver to register a new user with its email and password and username
+       *  Resolver to register a new user with its email and password
        * @param {_} parent
        * @param {email} Required email of the user
        * @param {password} Required password of the user
-       * @param {username} Required username of the user
        * @param {dataSources} fetch data from users
        * @param {user} context Check if the user is LoggedIn
        * @returns return object user
@@ -609,6 +608,7 @@ export const resolvers = {
       updateUser: async (_, { userDetail }, { dataSources, user }) => {
         if(!user) throw new AuthenticationError('you must be logged in');
         userDetail.updated_at = dateNow;
+        console.log(userDetail);
         const myUsers = await dataSources.users.updateUser(userDetail);
         myUsers.token = Buffer.from(myUsers.email).toString('base64');
         return myUsers;

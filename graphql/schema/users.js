@@ -16,5 +16,13 @@ export const users = `
         rememberMe: Boolean
         specialOffers: Boolean
         subscriptionPlan: String
+        profile: [Profile]
+    }
+    """ Schema for a Profile """
+    type Profile {
+        p_name: String!
+        kid: Boolean!
+        language: String!
+        profile_pic: String!
     }
 `;
