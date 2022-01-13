@@ -564,7 +564,7 @@ export const resolvers = {
        * @param {user} context Check if the user is LoggedIn
        * @returns return object user
       */
-      registerUser: async (_, { username, email, password }, { dataSources }) => {
+      registerUser: async (_, { email, password, subscriptionPlan, specialOffers }, { dataSources }) => {
         const userInputError = {};
         const existingUser = await dataSources.users.findOneByEmailAndPassword(email);
         if(!isEmail.validate(email)) {
@@ -573,9 +573,10 @@ export const resolvers = {
           if(!existingUser) {
             if (password.length > 8) {
               const data = {
-                username,
                 email,
                 password,
+                subscriptionPlan,
+                specialOffers,
                 created_at: dateNow,
                 updated_at: dateNow
               };

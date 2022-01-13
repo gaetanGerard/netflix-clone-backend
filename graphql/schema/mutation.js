@@ -2,11 +2,12 @@ export const mutation = `
     """ Mutation """
     type Mutation {
         """ Register user Mutation : \n
-            Option: username / String !! Required !! \n
-                    email / String !! Required !! \n
+            Option: email / String !! Required !! \n
                     password / String !! Required !!
+                    subscriptionPlan / String !! Required !!
+                    specialOffers / Boolean !! Required !!
         """
-        registerUser(username: String!, email: String!, password: String!): User!
+        registerUser(email: String!, password: String!, subscriptionPlan: String!, specialOffers: Boolean): User!
 
         """ Update user Mutation : \n
             Option: UserInput / Object !! Optional option !! \n

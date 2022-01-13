@@ -2,7 +2,6 @@ export const users = `
     """ Schema for an User """
     type User {
         _id: ID!
-        username: String!
         email: String!
         password: String!
         token: String
@@ -16,5 +15,6 @@ export const users = `
         updated_at: String
         rememberMe: Boolean
         specialOffers: Boolean
+        subscriptionPlan: String
     }
 `;
