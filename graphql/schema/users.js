@@ -16,7 +16,7 @@ export const users = `
         rememberMe: Boolean
         specialOffers: Boolean
         subscriptionPlan: String
-        profile: [Profile]
+        profiles: [Profile]
     }
     """ Schema for a Profile """
     type Profile {
@@ -24,5 +24,7 @@ export const users = `
         kid: Boolean!
         language: String!
         profile_pic: String!
+        autoplay_next_episode: Boolean!
+        autoplay_preview: Boolean!
     }
 `;

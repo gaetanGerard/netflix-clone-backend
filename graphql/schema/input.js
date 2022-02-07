@@ -8,7 +8,7 @@ export const input = `
         profile_pic: String
         description: String
         email: String
-        profile: [ProfileInput]
+        profiles: [ProfileInput]
         password: String
         rememberMe: Boolean
         specialOffers: Boolean
@@ -20,5 +20,7 @@ export const input = `
         kid: Boolean
         language: String
         profile_pic: String
+        autoplay_next_episode: Boolean
+        autoplay_preview: Boolean
     }
 `;
