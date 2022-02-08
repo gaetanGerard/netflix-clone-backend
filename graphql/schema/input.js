@@ -19,7 +19,7 @@ export const input = `
         p_name: String
         kid: Boolean
         language: String
-        profile_pic: String
+        profile_pic: Int
         autoplay_next_episode: Boolean
         autoplay_preview: Boolean
     }
