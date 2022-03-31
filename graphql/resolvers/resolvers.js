@@ -577,7 +577,8 @@ export const resolvers = {
                 subscriptionPlan,
                 specialOffers,
                 created_at: dateNow,
-                updated_at: dateNow
+                updated_at: dateNow,
+                profiles: []
               };
               const salt = await bcrypt.genSalt(10);
               data.password = await bcrypt.hash(data.password, salt);
