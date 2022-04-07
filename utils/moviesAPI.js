@@ -40,11 +40,11 @@ export class MoviesAPI extends RESTDataSource {
      * @param {primaryReleaseDateGTE} arguments (year as string) -> Optional (2018 as default)
      * @returns if media set return series discover list otherwise return movies list
      */
-    async getDiscover(whatToTarget = "discover", media = "movie", language = "en-US", sortBy = "popularity.desc", primaryReleaseDateGTE = "2018") {
+    async getDiscover(whatToTarget = "discover", media = "movie", language = "en-US", sortBy = "popularity.desc", primaryReleaseDateGTE = "2018", page = 1) {
         if(media === "movie") {
-            return this.get(`${whatToTarget}/${media}?api_key=${process.env.TMDB_API_KEY}&language=${language}&sort_by=${sortBy}&primary_release_date.gte=${primaryReleaseDateGTE}`)
+            return this.get(`${whatToTarget}/${media}?api_key=${process.env.TMDB_API_KEY}&language=${language}&sort_by=${sortBy}&primary_release_date.gte=${primaryReleaseDateGTE}&page=${page}`)
         } else {
-            return this.get(`${whatToTarget}/${media}?api_key=${process.env.TMDB_API_KEY}&language=${language}&sort_by=${sortBy}&air_date.gte=${primaryReleaseDateGTE}`)
+            return this.get(`${whatToTarget}/${media}?api_key=${process.env.TMDB_API_KEY}&language=${language}&sort_by=${sortBy}&air_date.gte=${primaryReleaseDateGTE}&page=${page}`)
         }
 
     }

@@ -31,8 +31,9 @@ export const query = `
                                 revenue.desc/asc \n
                                 primary_release_date.desc/asc \n
             primaryReleaseDateGTE: String / 2018 (default) Optional \n
+            page: Int / 1 (default) Optional \n
         """
-        getDiscover(media: String, language: String, sortBy: String, primaryReleaseDateGTE: String): Discover!
+        getDiscover(media: String, language: String, sortBy: String, primaryReleaseDateGTE: String, page: Int): Discover!
 
         """ Query for Get Now Playing / Upcoming / Top rated / Popular / Similar / Recommendations Movies \n
         Option : \n

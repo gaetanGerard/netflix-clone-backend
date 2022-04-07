@@ -182,11 +182,11 @@ export const resolvers = {
          * @param {user} context Check if the user is LoggedIn
          * @returns if media set return series discover list otherwise return movies list
          */
-        getDiscover: async (_, { media, language, sortBy, primaryReleaseDateGTE }, { dataSources, user }) => {
+        getDiscover: async (_, { media, language, sortBy, primaryReleaseDateGTE, page }, { dataSources, user }) => {
           if(!user) throw new AuthenticationError('you must be logged in');
           const whatToTarget = "discover";
           try {
-            return dataSources.moviesApi.getDiscover(whatToTarget, media, language, sortBy, primaryReleaseDateGTE);
+            return dataSources.moviesApi.getDiscover(whatToTarget, media, language, sortBy, primaryReleaseDateGTE, page);
           } catch (error) {
             console.log(error);
           }
