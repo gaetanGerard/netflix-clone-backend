@@ -17,4 +17,6 @@ export const union = `
     union MovieTVPeopleUnion = MoviesDiscover | TVDiscover | TrendingPeople
     """ Union between ProductionCompanies and SearchCollection for SearchCompOrColl """
     union SearchCompOrCollUnion = ProductionCompanies | SearchCollection
+    """ Union between MovieList and TVList """
+    union ListUnion = MovieList | TVList
 `;

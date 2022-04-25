@@ -26,5 +26,8 @@ export const users = `
         profile_pic: Int!
         autoplay_next_episode: Boolean!
         autoplay_preview: Boolean!
+        my_list: [ListUnion]
     }
+
+
 `;

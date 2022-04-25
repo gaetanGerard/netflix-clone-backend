@@ -34,4 +34,15 @@ export const tv = `
         credits: TVCredits
         images: MediaImages
     }
+
+    type TVList {
+        id: ID!
+        name: String!
+        media_type: String!
+        poster_path: String
+        backdrop_path: String
+        overview: String
+        genre_ids: [Int]
+        vote_average: Float
+    }
 `;

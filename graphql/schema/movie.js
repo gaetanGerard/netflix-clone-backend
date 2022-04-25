@@ -27,4 +27,15 @@ export const movie = `
         vote_average: Float!
         vote_count: Int!
     }
+
+    type MovieList {
+        id: ID!
+        title: String!
+        media_type: String!
+        poster_path: String
+        backdrop_path: String
+        overview: String
+        genre_ids: [Int]
+        vote_average: Float
+    }
 `;
