@@ -131,18 +131,6 @@ export const resolvers = {
       }
     },
 
-    // Resolver for ListUnion
-    ListUnion: {
-      __resolveType(obj) {
-        if (obj.media_type === "movie") {
-          return 'MovieList'
-        }
-        if (obj.media_type === "tv") {
-          return 'TVList'
-        }
-      }
-    },
-
     Query: {
         /**
          *  Resolver to Fetch one movie if id is provided otherwise latest movie added is fetch

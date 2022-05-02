@@ -22,5 +22,18 @@ export const input = `
         profile_pic: Int
         autoplay_next_episode: Boolean
         autoplay_preview: Boolean
+        my_list: [MovieTVListInput]
+    }
+
+    input MovieTVListInput {
+        id: ID
+        title: String
+        name: String
+        media_type: String
+        poster_path: String
+        backdrop_path: String
+        overview: String
+        genre_ids: [Int]
+        vote_average: Float
     }
 `;
