@@ -30,10 +30,10 @@ export const users = `
     }
 
     type MovieTVList {
-        id: ID!
+        id: ID
         title: String
         name: String
-        media_type: String!
+        media_type: String
         poster_path: String
         backdrop_path: String
         overview: String
