@@ -39,6 +39,9 @@ export const users = `
         overview: String
         genre_ids: [Int]
         vote_average: Float
+        runtime: Int
+        number_of_seasons: Int
+        number_of_episodes: Int
     }
 
 `;
