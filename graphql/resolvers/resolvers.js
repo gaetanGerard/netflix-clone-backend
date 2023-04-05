@@ -609,10 +609,67 @@ export const resolvers = {
       updateUser: async (_, { userDetail }, { dataSources, user }) => {
         if(!user) throw new AuthenticationError('you must be logged in');
         userDetail.updated_at = dateNow;
-        console.log(userDetail);
         const myUsers = await dataSources.users.updateUser(userDetail);
         myUsers.token = Buffer.from(myUsers.email).toString('base64');
         return myUsers;
+      },
+
+      /**
+       * Resolver to update an user profile list
+       * @param {_} parent
+       * @param {profileList} Required Object containing the field to update
+       * @param {dataSources} fetch data from users
+       * @param {user} context Check if the user is LoggedIn
+       * @returns return object profile
+       * */
+      updateUserProfileList: async (_, { profileList }, { dataSources, user }) => {
+        if(!user) throw new AuthenticationError('you must be logged in');
+        try {
+          const defaultProfile = {
+            p_name: profileList.p_name,
+            kid: profileList.kid ? profileList.kid : false,
+            language: profileList.language ? profileList.language : 'en-US',
+            profile_pic: profileList.profile_pic ? profileList.profile_pic : 1,
+            autoplay_next_episode: profileList.autoplay_next_episode ? profileList.autoplay_next_episode : false,
+            autoplay_preview: profileList.autoplay_preview ? profileList.autoplay_preview : false,
+            myList: profileList.myList ? profileList.myList : [],
+          }
+          const myUsers = await dataSources.users.updateUserProfileList(defaultProfile);
+          if (myUsers) {
+            myUsers.token = Buffer.from(user.email).toString('base64');
+            return defaultProfile;
+          } else {
+              throw new Error('Failed to update user profile list');
+          }
+      } catch (error) {
+          // Gérer l'erreur ici
+          console.error(error);
+          throw new Error('Failed to update user profile list');
+      }
+      },
+
+      /**
+       * Resolver to remove a profile from the user profile list
+       * @param {_} parent
+       *  @param {p_name} Required name of the profile
+       * @param {dataSources} fetch data from users
+       * @param {user} context Check if the user is LoggedIn
+       * @returns return Message
+       * */
+      removeProfile: async (_, { p_name }, { dataSources, user }) => {
+        if(!user) throw new AuthenticationError('you must be logged in');
+        try {
+          const myUsers = await dataSources.users.removeProfile(p_name);
+          if (myUsers) {
+            myUsers.token = Buffer.from(user.email).toString('base64');
+            return myUsers;
+          } else {
+              throw new Error('Failed to remove user profile');
+          }
+      } catch (error) {
+          console.error(error);
+          throw new Error(`Profile ${p_name} does not exist`);
+      }
       },
 
       /**
@@ -626,6 +683,54 @@ export const resolvers = {
         if(!user) throw new AuthenticationError('you must be logged in');
         const removeUsers = await dataSources.users.removeUser();
         return removeUsers;
+      },
+
+      /**
+       * Resolver to add a movie or tv show to the user profile list
+       * @param {_} parent
+       * @param {p_name} Required name of the profile
+       * @param {movieTVList} Required Object containing the field to update
+       * @param {dataSources} fetch data from users
+       * @param {user} context Check if the user is LoggedIn
+       * @returns return object profile
+       * */
+      addMovieTVToProfile: async (_, { p_name, movieTVList }, { dataSources, user }) => {
+        if(!user) throw new AuthenticationError('you must be logged in');
+        try {
+          const myUsers = await dataSources.users.addMovieTVToProfile(p_name, movieTVList);
+          if (myUsers) {
+            return myUsers;
+          } else {
+              throw new Error('Failed to update user profile list');
+          }
+      } catch (error) {
+          console.error(error);
+          throw new Error('Item already in your list');
+      }
+      },
+
+      /**
+       * Resolver to remove a movie or tv show from the user profile list
+       * @param {_} parent
+       * @param {p_name} Required name of the profile
+       * @param {movieTVList} Required Object containing the field to update
+       * @param {dataSources} fetch data from users
+       * @param {user} context Check if the user is LoggedIn
+       * @returns return object profile
+       * */
+      removeMovieTVFromProfile: async (_, { p_name, movieTVList }, { dataSources, user }) => {
+        if(!user) throw new AuthenticationError('you must be logged in');
+        try {
+          const myUsers = await dataSources.users.removeMovieTVFromProfile(p_name, movieTVList);
+          if (myUsers) {
+            return myUsers;
+          } else {
+              throw new Error('Failed to update user profile list');
+          }
+      } catch (error) {
+          console.error(error);
+          throw new Error('Item not in your list');
+      }
       }
     }
 }

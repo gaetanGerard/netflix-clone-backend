@@ -20,12 +20,12 @@ export const users = `
     }
     """ Schema for a Profile """
     type Profile {
-        p_name: String!
-        kid: Boolean!
-        language: String!
-        profile_pic: Int!
-        autoplay_next_episode: Boolean!
-        autoplay_preview: Boolean!
+        p_name: String
+        kid: Boolean
+        language: String
+        profile_pic: Int
+        autoplay_next_episode: Boolean
+        autoplay_preview: Boolean
         my_list: [MovieTVList]
     }
 

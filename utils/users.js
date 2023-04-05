@@ -42,7 +42,7 @@ export class Users extends MongoDataSource {
     */
     async updateUser(data) {
         const userId = this.context && this.context.user ? this.context.user._id : null;
-        const newUser = await this.collection.updateOne({_id: userId}, { $set: data });
+        await this.collection.updateOne({_id: userId}, { $set: data });
         const user = await this.collection.findOne(userId);
         return user;
     }
@@ -66,6 +66,100 @@ export class Users extends MongoDataSource {
             return message;
         }
     }
+
+    /**
+     * Function to update an User profile
+     * @param {data} arguments Required object to store in DB
+     * @returns return object User
+     *  */
+    async updateUserProfileList(data) {
+        const userId = this.context && this.context.user ? this.context.user._id : null;
+        const user = await this.collection.findOne(userId);
+        const profile = await user.profiles.find(profile => profile.p_name === data.p_name);
+        if(profile) {
+            const index = await user.profiles.indexOf(profile);
+            user.profiles[index] = data;
+        } else {
+            user.profiles.push(data);
+        }
+        await this.collection.updateOne({_id: userId}, { $set: user });
+        return user.profiles;
+    }
+
+    /**
+     * Function to remove an User profile
+     * @param {data} arguments Required object to store in DB
+     * @returns return object User
+     * */
+    async removeProfile(data) {
+        const userId = this.context && this.context.user ? this.context.user._id : null;
+        const user = await this.collection.findOne(userId);
+        const profile = await user.profiles.find(profile => profile.p_name === data);
+        if(profile) {
+            const index = await user.profiles.indexOf(profile);
+            user.profiles.splice(index, 1);
+            await this.collection.updateOne({_id: userId}, { $set: user });
+            let message = {};
+            message.msg = "Profile deleted";
+            message.type = "success";
+            return message;
+        }
+    }
+
+    /**
+     * Function to add movie/tv to an User profile
+     * @param {p_name} arguments Required object to store in DB
+     * @param {data} arguments Required object to store in DB
+     * @returns return object User
+     * */
+    async addMovieTVToProfile(p_name, data) {
+        const userId = this.context && this.context.user ? this.context.user._id : null;
+        const user = await this.collection.findOne(userId);
+        const profile = await user.profiles.find(profile => profile.p_name === p_name);
+        // check if item is already in the list
+        const item = await profile.myList.find(item => item.id === data.id);
+        if(item) {
+            let message = {};
+            message.msg = "Item already in the list";
+            message.type = "error";
+            throw new Error(message.msg);
+        }
+        profile.myList.push(data);
+        await this.collection.updateOne({_id: userId}, { $set: user });
+        return data;
+    }
+
+    /**
+     * Function to remove movie/tv from an User profile
+     * @param {p_name} arguments Required object to store in DB
+     * @param {data} arguments Required object to store in DB
+     * @returns return object User
+     * */
+    async removeMovieTVFromProfile(p_name, data) {
+        const userId = this.context && this.context.user ? this.context.user._id : null;
+        const user = await this.collection.findOne(userId);
+        const profile = await user.profiles.find(profile => profile.p_name === p_name);
+        const item = await profile.myList.find(item => item.id === data.id);
+        if(item) {
+            // remove item from the list
+            const index = await profile.myList.indexOf(item);
+            profile.myList.splice(index, 1);
+            await this.collection.updateOne({_id: userId}, { $set: user });
+            let message = {};
+            message.msg = "Item removed from the list";
+            message.type = "success";
+            return message;
+        } else {
+            let message = {};
+            message.msg = "Item not in your list";
+            message.type = "error";
+            return message;
+        }
+    }
+
+
+
+
 
 
 }

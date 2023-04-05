@@ -16,17 +16,17 @@ export const input = `
     }
 
     input ProfileInput {
-        p_name: String
-        kid: Boolean
-        language: String
-        profile_pic: Int
-        autoplay_next_episode: Boolean
-        autoplay_preview: Boolean
+        p_name: String!
+        kid: Boolean!
+        language: String!
+        profile_pic: Int!
+        autoplay_next_episode: Boolean!
+        autoplay_preview: Boolean!
         my_list: [MovieTVListInput]
     }
 
     input MovieTVListInput {
-        id: ID
+        id: ID!
         title: String
         name: String
         media_type: String
@@ -35,5 +35,8 @@ export const input = `
         overview: String
         genre_ids: [Int]
         vote_average: Float
+        runtime: Int
+        number_of_seasons: Int
+        number_of_episodes: Int
     }
 `;
