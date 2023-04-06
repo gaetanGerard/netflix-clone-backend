@@ -673,7 +673,6 @@ export const resolvers = {
           const myUsers = await dataSources.users.updateProfile(p_name, defaultProfile);
           if (myUsers) {
             myUsers.token = Buffer.from(user.email).toString('base64');
-            console.log(myUsers)
             return defaultProfile;
           } else {
               throw new Error('Failed to update user profile');
