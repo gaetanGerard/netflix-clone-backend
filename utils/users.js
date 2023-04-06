@@ -87,6 +87,25 @@ export class Users extends MongoDataSource {
     }
 
     /**
+     *  Function to get an User profile
+     * @param {p_name} arguments Required object to store in DB
+     * @returns return object User
+     * */
+    async updateProfile(p_name, data) {
+        const userId = this.context && this.context.user ? this.context.user._id : null;
+        const user = await this.collection.findOne(userId);
+        const profile = await user.profiles.find(profile => profile.p_name === p_name);
+        if(profile) {
+            const index = await user.profiles.indexOf(profile);
+            user.profiles[index] = data;
+        } else {
+            user.profiles.push(data);
+        }
+        await this.collection.updateOne({_id: userId}, { $set: user });
+        return user.profiles;
+    }
+
+    /**
      * Function to remove an User profile
      * @param {data} arguments Required object to store in DB
      * @returns return object User

@@ -22,6 +22,12 @@ export const mutation = `
         """
         updateUserProfileList(profileList: ProfileInput!): Profile!
 
+        """ Update One user profile Mutation : \n
+            Option: p_name / String !! Required !! \n
+                    ProfileInput / Object !! Optional option !! \n
+        """
+        updateProfile(p_name: String!, profile: ProfileInput!): Profile!
+
         """ Remove user profile Mutation : \n
             Option: p_name / String !! Required !! \n
         """

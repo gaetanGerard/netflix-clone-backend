@@ -632,7 +632,7 @@ export const resolvers = {
             profile_pic: profileList.profile_pic ? profileList.profile_pic : 1,
             autoplay_next_episode: profileList.autoplay_next_episode ? profileList.autoplay_next_episode : false,
             autoplay_preview: profileList.autoplay_preview ? profileList.autoplay_preview : false,
-            myList: profileList.myList ? profileList.myList : [],
+            my_list: profileList.my_list ? profileList.my_list : [],
           }
           const myUsers = await dataSources.users.updateUserProfileList(defaultProfile);
           if (myUsers) {
@@ -645,6 +645,43 @@ export const resolvers = {
           // Gérer l'erreur ici
           console.error(error);
           throw new Error('Failed to update user profile list');
+      }
+      },
+
+      /**
+       * Resolver to update an user profile
+       * @param {_} parent
+       * @param {p_name} Required name of the profile
+       * @param {profile} Required Object containing the field to update
+       * @param {dataSources} fetch data from users
+       * @param {user} context Check if the user is LoggedIn
+       * @returns return object profile
+       * */
+      updateProfile: async (_, { p_name, profile }, { dataSources, user }) => {
+        console.log(profile)
+        if(!user) throw new AuthenticationError('you must be logged in');
+        try {
+          const defaultProfile = {
+            p_name: profile.p_name,
+            kid: profile.kid ? profile.kid : false,
+            language: profile.language ? profile.language : 'en-US',
+            profile_pic: profile.profile_pic ? profile.profile_pic : 1,
+            autoplay_next_episode: profile.autoplay_next_episode ? profile.autoplay_next_episode : false,
+            autoplay_preview: profile.autoplay_preview ? profile.autoplay_preview : false,
+            my_list: profile.my_list ? profile.my_list : [],
+          }
+          const myUsers = await dataSources.users.updateProfile(p_name, defaultProfile);
+          if (myUsers) {
+            myUsers.token = Buffer.from(user.email).toString('base64');
+            console.log(myUsers)
+            return defaultProfile;
+          } else {
+              throw new Error('Failed to update user profile');
+          }
+      } catch (error) {
+          // Gérer l'erreur ici
+          console.error(error);
+          throw new Error('Failed to update user profile');
       }
       },
 
