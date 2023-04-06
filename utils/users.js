@@ -136,7 +136,6 @@ export class Users extends MongoDataSource {
         const user = await this.collection.findOne(userId);
         const profile = await user.profiles.find(profile => profile.p_name === p_name);
         // check if item is already in the list
-        console.log(profile)
         const item = await profile.my_list.find(item => item.id === data.id);
         if(item) {
             let message = {};

@@ -658,9 +658,9 @@ export const resolvers = {
        * @returns return object profile
        * */
       updateProfile: async (_, { p_name, profile }, { dataSources, user }) => {
-        console.log(profile)
         if(!user) throw new AuthenticationError('you must be logged in');
         try {
+          const currentProfile = await user.profiles.find(profile => profile.p_name === p_name);
           const defaultProfile = {
             p_name: profile.p_name,
             kid: profile.kid ? profile.kid : false,
@@ -668,7 +668,7 @@ export const resolvers = {
             profile_pic: profile.profile_pic ? profile.profile_pic : 1,
             autoplay_next_episode: profile.autoplay_next_episode ? profile.autoplay_next_episode : false,
             autoplay_preview: profile.autoplay_preview ? profile.autoplay_preview : false,
-            my_list: profile.my_list ? profile.my_list : [],
+            my_list: currentProfile.my_list ? currentProfile.my_list : [],
           }
           const myUsers = await dataSources.users.updateProfile(p_name, defaultProfile);
           if (myUsers) {
