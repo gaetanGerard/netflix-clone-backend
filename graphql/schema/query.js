@@ -63,7 +63,7 @@ export const query = `
         getUpcomTopRatedPopuNowPlayingTV(whatToTarget: String, language: String, page: String, id: ID): TVResult!
 
         """ Query for Get Credits for a Movie """
-        getCredits(id: ID!, language: String): MovieCredits
+        getCredits(id: ID, language: String): MovieCredits
 
         """ Query for Get Certifications for Movies and TV
         Option : \n
