@@ -180,13 +180,15 @@ export const resolvers = {
          * @param {primaryReleaseDateGTE} arguments (year as string) -> Optional (2018 as default)
          * @param {dataSources} fetch data from moviesAPI
          * @param {user} context Check if the user is LoggedIn
+         * @param {kid} arguments Check if the user is a kid
+         * @param {originalLanguage} arguments (en) -> Optional (en as default)
          * @returns if media set return series discover list otherwise return movies list
          */
-        getDiscover: async (_, { media, language, sortBy, primaryReleaseDateGTE, page }, { dataSources, user }) => {
+        getDiscover: async (_, { media, language, sortBy, page, kid, originalLanguage }, { dataSources, user }) => {
           if(!user) throw new AuthenticationError('you must be logged in');
           const whatToTarget = "discover";
           try {
-            return dataSources.moviesApi.getDiscover(whatToTarget, media, language, sortBy, primaryReleaseDateGTE, page);
+            return dataSources.moviesApi.getDiscover(whatToTarget, media, language, sortBy, page, kid, originalLanguage);
           } catch (error) {
             console.log(error);
           }

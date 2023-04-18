@@ -38,13 +38,16 @@ export class MoviesAPI extends RESTDataSource {
      * @param {language} arguments (en-US) -> Optional (en-US as default) language on this format
      * @param {sortBy} arguments (popularity.asc, release_date.desc/asc, revenue.desc/asc, primary_release_date.desc/asc) -> Optional (popularity.asc as default)
      * @param {primaryReleaseDateGTE} arguments (year as string) -> Optional (2018 as default)
+     * @param {kid} arguments (true/false) -> Optional (false as default)
+     * @param {page} arguments (1,2,...) -> Optional (1 as default)
+     * @param {originalLanguage} arguments (US,FR,EN,...) -> Optional (EN as default)
      * @returns if media set return series discover list otherwise return movies list
      */
-    async getDiscover(whatToTarget = "discover", media = "movie", language = "en-US", sortBy = "popularity.desc", primaryReleaseDateGTE = "2018", page = 1) {
+    async getDiscover(whatToTarget = "discover", media = "movie", language = "en-US", sortBy = "popularity.desc", page = 1, kid = false, originalLanguage= "en") {
         if(media === "movie") {
-            return this.get(`${whatToTarget}/${media}?api_key=${process.env.TMDB_API_KEY}&language=${language}&sort_by=${sortBy}&primary_release_date.gte=${primaryReleaseDateGTE}&page=${page}`)
+            return this.get(`${whatToTarget}/${media}?api_key=${process.env.TMDB_API_KEY}&language=${language}&sort_by=${sortBy}&page=${page}&with_original_language=${originalLanguage}${kid ? "&with_genres=16,10751" : ""}&with_watch_monetization_types=flatrate`)
         } else {
-            return this.get(`${whatToTarget}/${media}?api_key=${process.env.TMDB_API_KEY}&language=${language}&sort_by=${sortBy}&air_date.gte=${primaryReleaseDateGTE}&page=${page}`)
+            return this.get(`${whatToTarget}/${media}?api_key=${process.env.TMDB_API_KEY}&language=${language}&sort_by=${sortBy}&page=${page}&with_original_language=${originalLanguage}${kid ? "&with_genres=16,10751,10762" : ""}&with_watch_monetization_types=flatrate`)
         }
 
     }
