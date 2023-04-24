@@ -33,8 +33,9 @@ export const query = `
             page: Int / 1 (default) Optional \n
             kid: Boolean / false (default) Optional \n
             originalLanguage: String / EN (default) Optional \n
+            withGenre: String / null (default) Optional \n
         """
-        getDiscover(media: String, language: String, sortBy: String, page: Int, kid: Boolean, originalLanguage: String): Discover!
+        getDiscover(media: String, language: String, sortBy: String, page: Int, kid: Boolean, originalLanguage: String, withGenre: String): Discover!
 
         """ Query for Get Now Playing / Upcoming / Top rated / Popular / Similar / Recommendations Movies \n
         Option : \n

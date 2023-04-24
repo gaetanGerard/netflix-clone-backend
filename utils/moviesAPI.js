@@ -43,11 +43,11 @@ export class MoviesAPI extends RESTDataSource {
      * @param {originalLanguage} arguments (US,FR,EN,...) -> Optional (EN as default)
      * @returns if media set return series discover list otherwise return movies list
      */
-    async getDiscover(whatToTarget = "discover", media = "movie", language = "en-US", sortBy = "popularity.desc", page = 1, kid = false, originalLanguage= "en") {
+    async getDiscover(whatToTarget = "discover", media = "movie", language = "en-US", sortBy = "popularity.desc", page = 1, kid = false, originalLanguage= "en", withGenre = null) {
         if(media === "movie") {
-            return this.get(`${whatToTarget}/${media}?api_key=${process.env.TMDB_API_KEY}&language=${language}&sort_by=${sortBy}&page=${page}&with_original_language=${originalLanguage}${kid ? "&with_genres=16,10751" : ""}${kid ? "" : "&with_watch_monetization_types=flatrate"}`)
+            return this.get(`${whatToTarget}/${media}?api_key=${process.env.TMDB_API_KEY}&language=${language}&sort_by=${sortBy}&page=${page}&with_original_language=${originalLanguage}${withGenre !== null ? `&with_genres=${kid ? "16,10751" : withGenre}` : ""}${kid ? "" : "&with_watch_monetization_types=flatrate"}`)
         } else {
-            return this.get(`${whatToTarget}/${media}?api_key=${process.env.TMDB_API_KEY}&language=${language}&sort_by=${sortBy}&page=${page}&with_original_language=${originalLanguage}${kid ? "&with_genres=16,10751,10762" : ""}`)
+            return this.get(`${whatToTarget}/${media}?api_key=${process.env.TMDB_API_KEY}&language=${language}&sort_by=${sortBy}&page=${page}&with_original_language=${originalLanguage}${withGenre !== null ? `&with_genres=${kid ? "16,10751,10762" : withGenre}` : ""}`)
         }
 
     }
