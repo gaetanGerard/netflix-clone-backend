@@ -68,7 +68,7 @@ export const utilities = `
 
     """ Schema for Seasons """
     type Seasons {
-        air_date: String!
+        air_date: String
         episode_count: Int!
         id: ID!
         name: String!
