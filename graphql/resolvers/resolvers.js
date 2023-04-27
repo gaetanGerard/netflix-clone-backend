@@ -546,9 +546,12 @@ export const resolvers = {
     },
 
     Movie: {
-      belongs_to_collection: (par, __, { dataSources, user }) => {
+      belongs_to_collection: (par, __, { dataSources, user }, info) => {
+        const language = info.variableValues.language;
+        console.log(info)
         try {
-          return dataSources.moviesApi.getCollection(par.belongs_to_collection.id);
+          // const mergedInfo = info.mergeInfo.deepMerge(info);
+          return dataSources.moviesApi.getCollection(par.belongs_to_collection.id, language);
         } catch (error) {
           console.log(error);
         }
